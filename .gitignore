@@ -1,0 +1,20 @@
+/target/
+.classpath
+*/.settings/
+.settings/*
+*/target/*
+.class
+*/logs/
+\.svn/
+.project
+*/.project
+.DS_Store
+*/.DS_Store
+*/.gitignore
+.idea
+*.iml
+
+# Package Files #
+*.jar
+*.war
+*.ear
