@@ -1,28 +1,31 @@
 package org.codrim.common.utils.web.vo;
 
+import static org.codrim.common.utils.web.vo.CommonResult.ResultEnum.ErrorEnum;
+import static org.codrim.common.utils.web.vo.CommonResult.ResultEnum.SuccessEnum;
+
 /**
  * 通用返回结果
  * Created by tanghuabo on 9/22/16.
  */
 public class CommonResult<T> {
-    private String result = Result.Success.value;
-    private String msg = "success";
+    private int result = SuccessEnum.key;
+    private String msg = SuccessEnum.desc;
     private T data;
 
     public CommonResult() {}
 
     public CommonResult(String errorMsg) {
-        this.result = Result.Error.value;
+        this.result = ErrorEnum.key;
         this.msg = errorMsg;
     }
 
     public CommonResult(int errorCode, String errorMsg) {
-        this.result = String.valueOf(errorCode);
+        this.result = errorCode;
         this.msg = errorMsg;
     }
 
     public CommonResult(Throwable e) {
-        this.result = Result.Error.value;
+        this.result = ResultEnum.ErrorEnum.key;
         this.msg = e.getMessage();
     }
 
@@ -41,31 +44,22 @@ public class CommonResult<T> {
     /**
      * enum for #result
      */
-    public static enum Result {
-        Success("0000"),
-        Error("1000");
+    public static enum ResultEnum {
+        SuccessEnum(100, "处理成功"),
+        ErrorEnum(101, "处理失败");
 
-        public final String value;
+        public final int key;
+        public final String desc;
 
-        Result(String value) {
-            this.value = value;
+        ResultEnum(int key, String desc) {
+            this.key = key;
+            this.desc = desc;
+        }
+        public int getKey() {
+            return key;
+        }
+        public String getDesc() {
+            return desc;
         }
     }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
 }
