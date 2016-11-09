@@ -1,7 +1,7 @@
 package org.codrim.common.utils.web.vo;
 
-import static org.codrim.common.utils.web.vo.CommonResult.ResultEnum.ErrorEnum;
-import static org.codrim.common.utils.web.vo.CommonResult.ResultEnum.SuccessEnum;
+import static org.codrim.common.utils.enums.ResultEnum.ErrorEnum;
+import static org.codrim.common.utils.enums.ResultEnum.SuccessEnum;
 
 /**
  * 通用返回结果
@@ -25,7 +25,7 @@ public class CommonResult<T> {
     }
 
     public CommonResult(Throwable e) {
-        this.result = ResultEnum.ErrorEnum.key;
+        this.result = ErrorEnum.key;
         this.msg = e.getMessage();
     }
 
@@ -39,27 +39,5 @@ public class CommonResult<T> {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    /**
-     * enum for #result
-     */
-    public static enum ResultEnum {
-        SuccessEnum(100, "处理成功"),
-        ErrorEnum(101, "处理失败");
-
-        public final int key;
-        public final String desc;
-
-        ResultEnum(int key, String desc) {
-            this.key = key;
-            this.desc = desc;
-        }
-        public int getKey() {
-            return key;
-        }
-        public String getDesc() {
-            return desc;
-        }
     }
 }
