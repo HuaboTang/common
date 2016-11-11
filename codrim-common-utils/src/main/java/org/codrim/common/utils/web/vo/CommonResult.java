@@ -8,6 +8,22 @@ import static org.codrim.common.utils.enums.ResultEnum.SuccessEnum;
  * Created by tanghuabo on 9/22/16.
  */
 public class CommonResult<T> {
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     private int result = SuccessEnum.key;
     private String msg = SuccessEnum.desc;
     private T data;
@@ -26,7 +42,7 @@ public class CommonResult<T> {
 
     public CommonResult(Throwable e) {
         this.result = ErrorEnum.key;
-        this.msg = e.getMessage();
+        this.msg = e.getClass() + "==>" +e.getMessage();
     }
 
     public CommonResult(T t) {

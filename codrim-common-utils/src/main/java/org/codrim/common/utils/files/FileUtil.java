@@ -406,4 +406,9 @@ public class FileUtil extends FileUtils {
         String fileType = getFileType(fileName);
        return fileType != null && excelTypeList.contains(fileType);
     }
+
+    public static boolean isXLSXFile(String fileName) {
+        String fileType = getFileType(fileName);
+       return fileType != null && "xlsx".equals(fileType.toLowerCase());
+    }
 }
