@@ -19,7 +19,7 @@ public class EnumUtils {
 		throw new IllegalArgumentException("Unknow enum key: '" + key + "'");
 	}
 	
-	public static <T extends Enum<T> & EnumWithKey> List<Integer> enumForValueList(Class<T> type) {
+	public static <T extends Enum<T> & EnumWithKey> List<Integer> enumForKeyList(Class<T> type) {
 		List<Integer> valueList = new ArrayList<Integer>();
 		final Iterator<T> iterator = EnumSet.allOf(type).iterator();
 		while (iterator.hasNext()) {
