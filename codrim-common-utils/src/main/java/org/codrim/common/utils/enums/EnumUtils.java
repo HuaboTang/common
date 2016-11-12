@@ -20,16 +20,20 @@ public class EnumUtils {
 	}
 	
 	public static <T extends Enum<T> & EnumWithKey> List<Integer> enumForKeyList(Class<T> type) {
-		List<Integer> valueList = new ArrayList<Integer>();
+		List<Integer> keyList = new ArrayList<Integer>();
 		final Iterator<T> iterator = EnumSet.allOf(type).iterator();
 		while (iterator.hasNext()) {
-			valueList.add(iterator.next().getKey());
+			keyList.add(iterator.next().getKey());
 		}
-		return valueList;
+		return keyList;
 	}
 	
 	public static final <T extends Enum<T> & EnumWithKey> Iterator<T> enumIterator(Class<T> type) {
 		final EnumSet<T> allEnums = EnumSet.allOf(type);
 		return allEnums.iterator();
+	}
+
+	public static <T extends Enum<T> & EnumWithKey> boolean contaisKey(Class<T> type, int key) {
+		return enumForKeyList(type).contains(key);
 	}
 }
