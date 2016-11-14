@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class YYYYMMddHHmmssDateStringDeSerializer extends StdDeserializer<Date> {
     private SimpleDateFormat formatter =
-        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public YYYYMMddHHmmssDateStringDeSerializer() {
         this(null);
