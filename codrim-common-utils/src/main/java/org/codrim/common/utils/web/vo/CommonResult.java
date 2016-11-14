@@ -1,5 +1,11 @@
 package org.codrim.common.utils.web.vo;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.*;
+
+import java.util.Set;
+
 import static org.codrim.common.utils.enums.ResultEnum.ErrorEnum;
 import static org.codrim.common.utils.enums.ResultEnum.SuccessEnum;
 
@@ -55,5 +61,14 @@ public class CommonResult<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public static void main(String[] args) {
+        CommonResult<String> commonResult = new CommonResult<>();
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<CommonResult<String>>> constraintValidatorSet = validator.validate(commonResult);
+        constraintValidatorSet.size();
+        System.out.println(constraintValidatorSet.iterator().next().getMessage());
     }
 }

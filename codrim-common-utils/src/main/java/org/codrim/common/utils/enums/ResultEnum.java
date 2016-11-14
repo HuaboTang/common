@@ -8,7 +8,7 @@ public enum ResultEnum implements EnumWithKey {
     public final int key;
     public final String desc;
 
-    ResultEnum(int key, String desc) {
+    private ResultEnum(int key, String desc) {
         this.key = key;
         this.desc = desc;
     }

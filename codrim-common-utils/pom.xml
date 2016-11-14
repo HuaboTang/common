@@ -88,6 +88,12 @@
       <artifactId>jackson-databind</artifactId>
     </dependency>
     <!-- /fasterxml -->
+    <!-- hibernate validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    <!-- /hibernate validator -->
 
     <dependency>
       <groupId>org.slf4j</groupId>
