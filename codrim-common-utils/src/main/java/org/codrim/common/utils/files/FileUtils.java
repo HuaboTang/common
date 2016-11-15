@@ -1,6 +1,5 @@
 package org.codrim.common.utils.files;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +13,10 @@ import java.util.List;
  *
  * @version 2013-06-21
  */
-public class FileUtil extends FileUtils {
+public class FileUtils extends org.apache.commons.io.FileUtils {
 
     private static String excelTypeString = "xls;xlsx";
-    private static Logger log = LoggerFactory.getLogger(FileUtil.class);
+    private static Logger log = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * 复制单个文件，如果目标文件存在，则不覆盖
@@ -27,7 +26,7 @@ public class FileUtil extends FileUtils {
      * @return 如果复制成功，则返回true，否则返回false
      */
     public static boolean copyFile(String srcFileName, String descFileName) {
-        return FileUtil.copyFileCover(srcFileName, descFileName, false);
+        return FileUtils.copyFileCover(srcFileName, descFileName, false);
     }
 
     /**
@@ -56,7 +55,7 @@ public class FileUtil extends FileUtils {
             // 如果目标文件存在，并且允许覆盖
             if (coverlay) {
                 log.debug("目标文件已存在，准备删除!");
-                if (!FileUtil.delFile(descFileName)) {
+                if (!FileUtils.delFile(descFileName)) {
                     log.debug("删除目标文件 " + descFileName + " 失败!");
                     return false;
                 }
@@ -124,7 +123,7 @@ public class FileUtil extends FileUtils {
      * @return 如果复制成功返回true，否则返回false
      */
     public static boolean copyDirectory(String srcDirName, String descDirName) {
-        return FileUtil.copyDirectoryCover(srcDirName, descDirName, false);
+        return FileUtils.copyDirectoryCover(srcDirName, descDirName, false);
     }
 
     /**
@@ -159,7 +158,7 @@ public class FileUtil extends FileUtils {
             if (coverlay) {
                 // 允许覆盖目标目录
                 log.debug("目标目录已存在，准备删除!");
-                if (!FileUtil.delFile(descDirNames)) {
+                if (!FileUtils.delFile(descDirNames)) {
                     log.debug("删除目录 " + descDirNames + " 失败!");
                     return false;
                 }
@@ -184,7 +183,7 @@ public class FileUtil extends FileUtils {
             // 如果是一个单个文件，则直接复制
             if (files[i].isFile()) {
                 flag =
-                    FileUtil.copyFile(files[i].getAbsolutePath(), descDirName + files[i].getName());
+                    FileUtils.copyFile(files[i].getAbsolutePath(), descDirName + files[i].getName());
                 // 如果拷贝文件失败，则退出循环
                 if (!flag) {
                     break;
@@ -192,7 +191,7 @@ public class FileUtil extends FileUtils {
             }
             // 如果是子目录，则继续复制目录
             if (files[i].isDirectory()) {
-                flag = FileUtil
+                flag = FileUtils
                     .copyDirectory(files[i].getAbsolutePath(), descDirName + files[i].getName());
                 // 如果拷贝目录失败，则退出循环
                 if (!flag) {
@@ -223,9 +222,9 @@ public class FileUtil extends FileUtils {
             return true;
         } else {
             if (file.isFile()) {
-                return FileUtil.deleteFile(fileName);
+                return FileUtils.deleteFile(fileName);
             } else {
-                return FileUtil.deleteDirectory(fileName);
+                return FileUtils.deleteDirectory(fileName);
             }
         }
     }
@@ -274,7 +273,7 @@ public class FileUtil extends FileUtils {
         for (int i = 0; i < files.length; i++) {
             // 删除子文件
             if (files[i].isFile()) {
-                flag = FileUtil.deleteFile(files[i].getAbsolutePath());
+                flag = FileUtils.deleteFile(files[i].getAbsolutePath());
                 // 如果删除文件失败，则退出循环
                 if (!flag) {
                     break;
@@ -282,7 +281,7 @@ public class FileUtil extends FileUtils {
             }
             // 删除子目录
             else if (files[i].isDirectory()) {
-                flag = FileUtil.deleteDirectory(files[i].getAbsolutePath());
+                flag = FileUtils.deleteDirectory(files[i].getAbsolutePath());
                 // 如果删除子目录失败，则退出循环
                 if (!flag) {
                     break;
@@ -381,7 +380,7 @@ public class FileUtil extends FileUtils {
      */
     public static void writeFile(String content, String filePath) {
         try {
-            if (FileUtil.createFile(filePath)) {
+            if (FileUtils.createFile(filePath)) {
                 FileWriter fileWriter = new FileWriter(filePath, true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 bufferedWriter.write(content);
@@ -410,5 +409,10 @@ public class FileUtil extends FileUtils {
     public static boolean isXLSXFile(String fileName) {
         String fileType = getFileType(fileName);
        return fileType != null && "xlsx".equals(fileType.toLowerCase());
+    }
+
+    public static boolean isExist(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
     }
 }
