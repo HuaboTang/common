@@ -5,6 +5,8 @@ public enum ResultEnum implements EnumWithKey {
     SuccessEnum(100, "处理成功"),
     ErrorEnum(101, "处理失败");
 
+    public static final int Error = 101;
+    public static final int Success = 100;
     public final int key;
     public final String desc;
 
