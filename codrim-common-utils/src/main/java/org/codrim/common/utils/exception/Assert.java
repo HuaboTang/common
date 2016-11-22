@@ -59,6 +59,35 @@ public class Assert {
 	public static void notNull(Object obj, String message) {
 		validate(obj!=null, ServiceException.class, message);
 	}
+
+	/**
+	 * 判定对象不为空，否则抛出异常
+	 * @param obj
+	 * @param message
+	 * @author bobo
+	 */
+	public static void notNull(Object obj,int errorCode, String message) {
+		validate(obj!=null, ServiceException.class, errorCode, message);
+	}
+
+	/**
+	 * 判定对象不为空，否则抛出异常
+	 * @param obj
+	 * @param message
+	 * @author bobo
+	 */
+	public static void isNull(Object obj, String message) {
+		validate(obj==null, ServiceException.class, message);
+	}
+	/**
+	 * 判定对象不为空，否则抛出异常
+	 * @param obj
+	 * @param message
+	 * @author bobo
+	 */
+	public static void isNull(Object obj, int errorCode, String message) {
+		validate(obj==null, ServiceException.class, errorCode, message);
+	}
 	
 	/**
 	 * 判定对象不为空，否则抛出异常
