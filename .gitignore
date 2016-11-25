@@ -13,6 +13,7 @@
 */.gitignore
 .idea
 *.iml
+pom.xml.versionsBackup
 
 # Package Files #
 *.jar
