@@ -1,11 +1,21 @@
 package org.codrim.common.utils.web.vo;
 
+import java.util.Collection;
+
 /**
  * 分页查询结果
  */
 public class PagingResult<T> {
     private int total;
-    private T rows;
+    private Collection<T> rows;
+
+    public PagingResult() {
+    }
+
+    public PagingResult(int total, Collection<T> rows) {
+        this.total = total;
+        this.rows = rows;
+    }
 
     public int getTotal() {
         return total;
@@ -15,11 +25,11 @@ public class PagingResult<T> {
         this.total = total;
     }
 
-    public T getRows() {
+    public Collection<T> getRows() {
         return rows;
     }
 
-    public void setRows(T rows) {
+    public void setRows(Collection<T> rows) {
         this.rows = rows;
     }
 }
