@@ -1,9 +1,9 @@
 package org.codrim.common.utils.web.vo;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.*;
-
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 import static org.codrim.common.utils.enums.ResultEnum.ErrorEnum;
