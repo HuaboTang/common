@@ -10,15 +10,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class YYYYMMddHHmmssDateStringDeSerializer extends StdDeserializer<Date> {
+public class StringToDateDeSerializer extends StdDeserializer<Date> {
     private SimpleDateFormat formatter =
         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public YYYYMMddHHmmssDateStringDeSerializer() {
+    public StringToDateDeSerializer() {
         this(null);
     }
 
-    public YYYYMMddHHmmssDateStringDeSerializer(Class<?> vc) {
+    public StringToDateDeSerializer(Class<?> vc) {
         super(vc);
     }
 

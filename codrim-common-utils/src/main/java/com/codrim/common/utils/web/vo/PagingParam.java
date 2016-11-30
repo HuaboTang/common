@@ -15,7 +15,7 @@ public class PagingParam {
     }
 
     public void setPage(int page) {
-        this.page = page;
+        this.page = page > 100 ? 100 : page;
     }
 
     public int getRows() {
@@ -29,5 +29,4 @@ public class PagingParam {
     public int getOffset() {
         return Math.max(page-1, 0)*rows;
     }
-
 }
