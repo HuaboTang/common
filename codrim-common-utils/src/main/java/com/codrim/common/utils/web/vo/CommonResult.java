@@ -1,13 +1,14 @@
 package com.codrim.common.utils.web.vo;
 
+import com.codrim.common.utils.enums.ResultCode;
+import com.sun.net.httpserver.Authenticator;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
-import static com.codrim.common.utils.enums.ResultEnum.ErrorEnum;
-import static com.codrim.common.utils.enums.ResultEnum.SuccessEnum;
 
 /**
  * 通用返回结果
@@ -30,14 +31,14 @@ public class CommonResult<T> {
         this.msg = msg;
     }
 
-    private int result = SuccessEnum.key;
-    private String msg = SuccessEnum.desc;
+    private int result = ResultCode.Success.key;
+    private String msg = ResultCode.Success.desc;
     private T data;
 
     public CommonResult() {}
 
     public CommonResult(String errorMsg) {
-        this.result = ErrorEnum.key;
+        this.result = ResultCode.Error.key;
         this.msg = errorMsg;
     }
 
@@ -47,7 +48,7 @@ public class CommonResult<T> {
     }
 
     public CommonResult(Throwable e) {
-        this.result = ErrorEnum.key;
+        this.result = ResultCode.Error.key;
         this.msg = e.getClass() + "==>" +e.getMessage();
     }
 

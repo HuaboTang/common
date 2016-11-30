@@ -1,16 +1,17 @@
 package com.codrim.common.utils.enums;
 
-public enum ResultEnum implements EnumWithKey {
+public enum ResultCode implements EnumWithKey {
 
-    SuccessEnum(100, "处理成功"),
-    ErrorEnum(101, "处理失败");
+    Success(ResultCode.SUCCESS, "处理成功"),
+    Error(ResultCode.ERROR, "处理失败");
 
-    public static final int Error = 101;
-    public static final int Success = 100;
+    public static final int ERROR = 101;
+    public static final int SUCCESS = 100;
+
     public final int key;
     public final String desc;
 
-    private ResultEnum(int key, String desc) {
+    private ResultCode(int key, String desc) {
         this.key = key;
         this.desc = desc;
     }

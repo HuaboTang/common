@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 /**
  * Created by liang.ma on 12/11/2016.
  */
-public class NullOrEmptyStringOrNumberSeperatorByCommaValidator  implements ConstraintValidator<NullOrEmptyStringOrNumberSeperatorByComma, String>{
+public class BlankOrNumberSeperatorByCommaValidator  implements ConstraintValidator<BlankOrNumberSeperatorByComma, String>{
     @Override
-    public void initialize(NullOrEmptyStringOrNumberSeperatorByComma constraintAnnotation) {
+    public void initialize(BlankOrNumberSeperatorByComma constraintAnnotation) {
 
     }
 

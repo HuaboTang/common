@@ -1,4 +1,4 @@
-package com.codrim.common.utils.web.vo.serializer;
+package com.codrim.common.utils.web.vo.dserialize;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
