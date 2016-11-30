@@ -5,10 +5,10 @@ package com.codrim.common.utils.enums;
  */
 public enum TrueFalse implements EnumWithKey {
     True(TrueFalse.TRUE, "true"),
-    False(TrueFalse.FALSe, "false");
+    False(TrueFalse.FALSE, "false");
 
     public static final int TRUE = 1;
-    public static final int FALSe = 0;
+    public static final int FALSE = 0;
 
     public final int key;
     public final String desc;
