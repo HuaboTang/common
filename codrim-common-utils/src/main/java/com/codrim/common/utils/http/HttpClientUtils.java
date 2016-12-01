@@ -1,17 +1,8 @@
 package com.codrim.common.utils.http;
 
 import com.codrim.common.utils.json.JsonMapper;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -21,18 +12,27 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * http连接、抓取管理类
  */
 public class HttpClientUtils {
 
-    private static Log logger = LogFactory.getLog(HttpClientUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpClientUtils.class);
 
     private static HttpClientUtils httpClientUtil;
 
@@ -41,9 +41,9 @@ public class HttpClientUtils {
     private HttpClientUtils() {
         this.clientBuilder = HttpClientBuilder.create();
         RequestConfig.Builder requestBuilder = RequestConfig
-            .custom()
-            .setConnectTimeout(10000)
-            .setConnectionRequestTimeout(15000);
+                .custom()
+                .setConnectTimeout(10000)
+                .setConnectionRequestTimeout(15000);
         clientBuilder.setDefaultRequestConfig(requestBuilder.build());
     }
 
@@ -60,10 +60,24 @@ public class HttpClientUtils {
         return httpClientUtil;
     }
 
+    public CodrimHttpResponse httpGet(String url) {
+        final HttpGet httpGet = new HttpGet(url);
+        final CloseableHttpClient build = this.clientBuilder.build();
+        try {
+            final CloseableHttpResponse response = build.execute(httpGet);
+            return new CodrimHttpResponse(response);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+
     /**
      * add by wenzhikai 2015-01-23
-     *<获取对应文件流>
+     * <获取对应文件流>
      * <功能详细描述>
+     *
      * @param url
      * @return
      * @throws ClientProtocolException
@@ -133,7 +147,6 @@ public class HttpClientUtils {
         HttpPost post = new HttpPost(url);
         String result = null;
         try {
-            // post.setHeader("endPoint","phone");
             ByteArrayEntity s = new ByteArrayEntity(json.getBytes());
             s.setContentEncoding("UTF-8");
             s.setContentType("application/json");
@@ -151,8 +164,25 @@ public class HttpClientUtils {
         return result;
     }
 
+    public CodrimHttpResponse httpPost(String url, String json) {
+        HttpClient client = this.clientBuilder.build();
+        HttpPost post = new HttpPost(url);
+        try {
+            ByteArrayEntity s = new ByteArrayEntity(json.getBytes());
+            s.setContentEncoding("UTF-8");
+            s.setContentType("application/json");
+            post.setEntity(s);
+
+            HttpResponse res = client.execute(post);
+
+            return new CodrimHttpResponse(res);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public <T> T postJson(String url, Object obj, Class<T> resultType) throws IOException {
-        if(StringUtils.isBlank(url)) {
+        if (StringUtils.isBlank(url)) {
             throw new IllegalArgumentException("Invalid arguments \'url\'");
         } else {
             CloseableHttpClient client = this.clientBuilder.build();
@@ -164,7 +194,7 @@ public class HttpClientUtils {
                 entity.setContentEncoding("UTF-8");
                 entity.setContentType("application/json");
                 CloseableHttpResponse res = client.execute(post);
-                if(res.getStatusLine().getStatusCode() == 200) {
+                if (res.getStatusLine().getStatusCode() == 200) {
                     byte[] bytes = IOUtils.toByteArray(res.getEntity().getContent());
                     String sJson = new String(bytes, "UTF-8");
                     return e.fromJson(sJson, resultType);
@@ -182,7 +212,7 @@ public class HttpClientUtils {
     }
 
     public <T> T postEntity(String url, Object obj, Class<T> resultType, Map<String, String> headMap) throws IOException {
-        if(StringUtils.isBlank(url)) {
+        if (StringUtils.isBlank(url)) {
             throw new IllegalArgumentException("Invalid arguments \'url\'");
         } else {
             CloseableHttpClient client = this.clientBuilder.build();
@@ -193,17 +223,10 @@ public class HttpClientUtils {
                 ByteArrayEntity entity = new ByteArrayEntity(e.toJson(obj).getBytes("UTF-8"));
                 entity.setContentEncoding("UTF-8");
                 entity.setContentType("application/json");
-                if(!headMap.isEmpty()) {
-                    Iterator bytes = headMap.keySet().iterator();
-
-                    while(bytes.hasNext()) {
-                        String res = (String)bytes.next();
-                        post.setHeader(res, (String)headMap.get(res));
-                    }
-                }
+                setHeader(headMap, post);
 
                 CloseableHttpResponse res1 = client.execute(post);
-                if(res1.getStatusLine().getStatusCode() == 200) {
+                if (res1.getStatusLine().getStatusCode() == 200) {
                     byte[] bytes1 = IOUtils.toByteArray(res1.getEntity().getContent());
                     String sJson = new String(bytes1, "UTF-8");
                     return e.fromJson(sJson, resultType);
@@ -225,24 +248,17 @@ public class HttpClientUtils {
         HttpPost post = new HttpPost(url);
 
         try {
-            if(StringUtils.isNotBlank(json)) {
+            if (StringUtils.isNotBlank(json)) {
                 ByteArrayEntity e = new ByteArrayEntity(json.getBytes());
                 e.setContentEncoding("UTF-8");
                 e.setContentType("application/json");
-                if(!headMap.isEmpty()) {
-                    Iterator bytes = headMap.keySet().iterator();
-
-                    while(bytes.hasNext()) {
-                        String entity = (String)bytes.next();
-                        post.setHeader(entity, (String)headMap.get(entity));
-                    }
-                }
+                setHeader(headMap, post);
 
                 post.setEntity(e);
             }
 
             HttpResponse e1 = client.execute(post);
-            if(e1.getStatusLine().getStatusCode() == 200) {
+            if (e1.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity1 = e1.getEntity();
                 byte[] bytes1 = IOUtils.toByteArray(entity1.getContent());
                 return new String(bytes1, "UTF-8");
@@ -251,6 +267,16 @@ public class HttpClientUtils {
             }
         } catch (Exception var9) {
             throw new RuntimeException(var9);
+        }
+    }
+
+    private void setHeader(Map<String, String> headMap, HttpPost post) {
+        if (!headMap.isEmpty()) {
+            Iterator bytes = headMap.keySet().iterator();
+            while (bytes.hasNext()) {
+                String entity = (String) bytes.next();
+                post.setHeader(entity, (String) headMap.get(entity));
+            }
         }
     }
 
