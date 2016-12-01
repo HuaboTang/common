@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.4 2016-12-01
+- HttpClientUtils增加get方法,并增加返回状态码的方法
+
 ## 1.0.3
 - 优化enum的命名及相关常量
 - 引入number to date 序列化 及 string to date 反序列化类
