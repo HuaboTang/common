@@ -147,7 +147,7 @@ public class HttpClientUtils {
         HttpPost post = new HttpPost(url);
         String result = null;
         try {
-            ByteArrayEntity s = new ByteArrayEntity(json.getBytes());
+            ByteArrayEntity s = new ByteArrayEntity(json.getBytes("UTF-8"));
             s.setContentEncoding("UTF-8");
             s.setContentType("application/json");
             post.setEntity(s);
@@ -168,7 +168,7 @@ public class HttpClientUtils {
         HttpClient client = this.clientBuilder.build();
         HttpPost post = new HttpPost(url);
         try {
-            ByteArrayEntity s = new ByteArrayEntity(json.getBytes());
+            ByteArrayEntity s = new ByteArrayEntity(json.getBytes("UTF-8"));
             s.setContentEncoding("UTF-8");
             s.setContentType("application/json");
             post.setEntity(s);
