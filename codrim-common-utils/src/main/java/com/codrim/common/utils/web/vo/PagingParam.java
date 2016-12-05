@@ -5,6 +5,7 @@ package com.codrim.common.utils.web.vo;
  * 页面查询,传递page和rows参数;数据库查询时,传递offset和rows作为查询参数
  */
 public class PagingParam {
+    public static final int MAX__PAGE_ROWS = 100;
     /** 当前页数 */
     private int page = 1;
     /** 每页最大行数 */
@@ -15,7 +16,7 @@ public class PagingParam {
     }
 
     public void setPage(int page) {
-        this.page = page > 100 ? 100 : page;
+        this.page = page ;
     }
 
     public int getRows() {
@@ -23,10 +24,10 @@ public class PagingParam {
     }
 
     public void setRows(int rows) {
-        this.rows = rows;
+        this.rows = rows > MAX__PAGE_ROWS ? MAX__PAGE_ROWS : rows;
     }
 
     public int getOffset() {
-        return Math.max(page-1, 0)*rows;
+        return Math.max(page-1, 0) * rows;
     }
 }
