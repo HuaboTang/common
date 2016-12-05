@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -26,6 +27,9 @@ public class StringToDateDeSerializer extends StdDeserializer<Date> {
     public Date deserialize(JsonParser jsonparser, DeserializationContext context)
         throws IOException, JsonProcessingException {
         String date = jsonparser.getText();
+        if (StringUtils.isBlank(date)) {
+            return  null;
+        }
         try {
             return formatter.parse(date);
         } catch (ParseException e) {
