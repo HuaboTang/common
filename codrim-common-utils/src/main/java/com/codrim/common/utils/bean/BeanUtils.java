@@ -26,6 +26,7 @@ public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
             T2 t2 = null;
             destList = new ArrayList<T2>();
             for (T1 t1 : origList) {
+                if (t1 == null) continue;
                 try {
                     t2 = t2Clazz.newInstance();
                     org.apache.commons.beanutils.BeanUtils.copyProperties(t2, t1);
@@ -54,18 +55,18 @@ public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
      */
     public static <T2 extends java.lang.Object, T1 extends java.lang.Object> T2 copyProperties(T1 origObj ,Class<T2> t2Clazz) {
         T2 t2 = null;
-        try {
-            t2 = t2Clazz.newInstance();
-            org.apache.commons.beanutils.BeanUtils.copyProperties(t2, origObj);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        if (origObj != null) {
+            try {
+                t2 = t2Clazz.newInstance();
+                org.apache.commons.beanutils.BeanUtils.copyProperties(t2, origObj);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
         return t2;
     }
-
-
 }
