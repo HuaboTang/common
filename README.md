@@ -1,4 +1,6 @@
 # Release Notes
+## 1.0.5 2016-12-28
+-优化BeanUtils.copyProperties & 新增 BeanUtils.populate支持
 ## 1.0.5 2016-12-02
 -HttpClientUtils.post(url,json),json转二进制时,增加编码UTF-8处理
 ## 1.0.4 2016-12-01
