@@ -1,8 +1,13 @@
 # Release Notes
-## 1.0.5 2016-12-28
+## 1.0.7 2016-12-28
+- add com.codrim.common.utils.enums.EnumUtils.enumForKey(java.lang.Class<T>, java.lang.Integer)
+
+## 1.0.6 2016-12-28
 -优化BeanUtils.copyProperties & 新增 BeanUtils.populate支持
+
 ## 1.0.5 2016-12-02
 -HttpClientUtils.post(url,json),json转二进制时,增加编码UTF-8处理
+
 ## 1.0.4 2016-12-01
 - HttpClientUtils增加get方法,并增加返回状态码的方法
 
