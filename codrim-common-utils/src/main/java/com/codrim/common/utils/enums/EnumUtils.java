@@ -6,7 +6,16 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EnumUtils {
-	public static final <T extends Enum<T> & EnumWithKey> T enumForKey(Class<T> type, int key) {
+
+	public static <T extends Enum<T> & EnumWithKey> T enumForKey(Class<T> type, Integer key) {
+		if (key == null) {
+			return null;
+		} else {
+			return enumForKey(type, key.intValue());
+		}
+	}
+
+	public static <T extends Enum<T> & EnumWithKey> T enumForKey(Class<T> type, int key) {
 		final EnumSet<T> allEnums = EnumSet.allOf(type);
 		final Iterator<T> iterator = allEnums.iterator();
 		T result;
@@ -21,14 +30,13 @@ public class EnumUtils {
 	
 	public static <T extends Enum<T> & EnumWithKey> List<Integer> enumForKeyList(Class<T> type) {
 		List<Integer> keyList = new ArrayList<Integer>();
-		final Iterator<T> iterator = EnumSet.allOf(type).iterator();
-		while (iterator.hasNext()) {
-			keyList.add(iterator.next().getKey());
+		for (T t : EnumSet.allOf(type)) {
+			keyList.add(t.getKey());
 		}
 		return keyList;
 	}
 	
-	public static final <T extends Enum<T> & EnumWithKey> Iterator<T> enumIterator(Class<T> type) {
+	public static <T extends Enum<T> & EnumWithKey> Iterator<T> enumIterator(Class<T> type) {
 		final EnumSet<T> allEnums = EnumSet.allOf(type);
 		return allEnums.iterator();
 	}
