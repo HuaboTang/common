@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
  * <p>ID生成器</p>
  * <p>生成唯一的ID,分布式环境下可用</p>
  */
-public class IdGenerater {
+public class IdGenerator {
     private volatile static int serialNo = 0;
     private static final String FORMATSTRING = "yyMMddHHmmssSSS";
 
@@ -105,7 +105,7 @@ public class IdGenerater {
      * 获取本机IP
      * @return 本机IP
      */
-	private static String getCurrentIP() {
+	protected static String getCurrentIP() {
         String ip = "";
         try {
             final Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -113,7 +113,7 @@ public class IdGenerater {
                 final NetworkInterface networkInterface = networkInterfaces.nextElement();
                 final Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
                 while (inetAddresses.hasMoreElements()) {
-                    String s = inetAddresses.toString();
+                    String s = inetAddresses.nextElement().toString();
                     s = s.replace("/", "");
                     if (s.matches("\\d+\\.\\d+\\.\\d+\\.\\d+")) {
                         return s;
