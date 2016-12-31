@@ -1,8 +1,11 @@
 package com.codrim.common.utils;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
@@ -103,15 +106,27 @@ public class IdGenerater {
      * @return 本机IP
      */
 	private static String getCurrentIP() {
-		String ip = "";
-		try {
-			ip = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			throw new RuntimeException("can not get ip!");
-		}
-		if (StringUtils.isBlank(ip)) {
-			throw new RuntimeException("ip is blank!");
-		}
-		return ip;
-	}
+        String ip = "";
+        try {
+            final Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (networkInterfaces.hasMoreElements()) {
+                final NetworkInterface networkInterface = networkInterfaces.nextElement();
+                final Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+                while (inetAddresses.hasMoreElements()) {
+                    String s = inetAddresses.toString();
+                    s = s.replace("/", "");
+                    if (s.matches("\\d+\\.\\d+\\.\\d+\\.\\d+")) {
+                        return s;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (StringUtils.isBlank(ip)) {
+            throw new RuntimeException("ip is blank!");
+        }
+        return ip;
+    }
 }
