@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.8 2017-01-04
+- 调整EnumUtils,让其增加更多类型的枚举值类型
+
 ## 1.0.7 2016-12-28
 - add com.codrim.common.utils.enums.EnumUtils.enumForKey(java.lang.Class<T>, java.lang.Integer)
 
