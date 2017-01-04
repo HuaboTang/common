@@ -1,6 +1,6 @@
 package com.codrim.common.utils.enums;
 
-public enum ResultCode implements EnumWithKey {
+public enum ResultCode implements EnumWithKey<Integer> {
 
     Success(ResultCode.SUCCESS, "处理成功"),
     Error(ResultCode.ERROR, "处理失败");
@@ -11,7 +11,7 @@ public enum ResultCode implements EnumWithKey {
     public final int key;
     public final String desc;
 
-    private ResultCode(int key, String desc) {
+    ResultCode(int key, String desc) {
         this.key = key;
         this.desc = desc;
     }
@@ -21,7 +21,7 @@ public enum ResultCode implements EnumWithKey {
     }
 
     @Override
-    public int getKey() {
+    public Integer getKey() {
         return key;
     }
 }

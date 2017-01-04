@@ -4,7 +4,7 @@ package com.codrim.common.utils.enums;
  * 日期格式化枚举类
  * Created by liang.ma on 03/11/2016.
  */
-public enum DateFormat implements EnumWithKey{
+public enum DateFormat implements EnumWithKey<Integer> {
     yyyy_MM_dd(DateFormat.YYYY_MM_DD, "yyyy-MM-dd"),
     yyyyMMdd(DateFormat.YYYYMMDD, "yyyyMMdd"),
     yyyy_MM_dd_HH_mm_ss(DateFormat.YYYY_MM_DD_HH_MM_SS, "yyyy-MM-dd HH:mm:ss"),
@@ -19,13 +19,13 @@ public enum DateFormat implements EnumWithKey{
     private final int key;
     private final String desc;
 
-    private DateFormat(int key, String desc) {
+    DateFormat(int key, String desc) {
         this.key = key;
         this.desc = desc;
     }
 
     @Override
-    public int getKey() {
+    public Integer getKey() {
         return key;
     }
 

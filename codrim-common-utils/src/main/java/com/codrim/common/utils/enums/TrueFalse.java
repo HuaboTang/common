@@ -3,7 +3,7 @@ package com.codrim.common.utils.enums;
 /**
  * Created by liang.ma on 12/11/2016.
  */
-public enum TrueFalse implements EnumWithKey {
+public enum TrueFalse implements EnumWithKey<Integer> {
     True(TrueFalse.TRUE, "true"),
     False(TrueFalse.FALSE, "false");
 
@@ -19,7 +19,7 @@ public enum TrueFalse implements EnumWithKey {
     }
 
     @Override
-    public int getKey() {
+    public Integer getKey() {
         return 0;
     }
 
