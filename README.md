@@ -1,4 +1,6 @@
 # Release Notes
+## 1.0.9 2017-01-16
+- 增加EnumWithKeyDesc接口 处理序列化时的枚举的key-desc
 ## 1.0.8 2017-01-04 (与上一版本不兼容,慎重升级)
 - 调整EnumUtils,让其增加更多类型的枚举值类型
 
