@@ -1,6 +1,6 @@
 package com.codrim.common.utils.enums;
 
-public enum ResultCode implements EnumWithKey<Integer> {
+public enum ResultCode implements EnumWithKeyDesc<Integer> {
 
     Success(ResultCode.SUCCESS, "处理成功"),
     Error(ResultCode.ERROR, "处理失败");

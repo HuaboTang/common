@@ -3,7 +3,7 @@ package com.codrim.common.utils.enums;
 /**
  * Created by liang.ma on 12/11/2016.
  */
-public enum TrueFalse implements EnumWithKey<Integer> {
+public enum TrueFalse implements EnumWithKeyDesc<Integer> {
     True(TrueFalse.TRUE, "true"),
     False(TrueFalse.FALSE, "false");
 
@@ -13,7 +13,7 @@ public enum TrueFalse implements EnumWithKey<Integer> {
     public final int key;
     public final String desc;
 
-   private TrueFalse(int key, String desc) {
+    TrueFalse(int key, String desc) {
         this.key = key;
         this.desc = desc;
     }
@@ -25,5 +25,10 @@ public enum TrueFalse implements EnumWithKey<Integer> {
 
     public static TrueFalse trueFalseEnum(int key) {
         return EnumUtils.enumForKey(TrueFalse.class, key);
+    }
+
+    @Override
+    public String getDesc() {
+        return desc;
     }
 }
