@@ -19,6 +19,11 @@ public class ServiceException extends RuntimeException {
 	public ServiceException(String errorMsg) {
 		super(errorMsg);
 	}
+
+	public ServiceException(Integer errorCode, String errorMsg) {
+		super(errorMsg);
+		this.errorCode = errorCode;
+	}
 	
 	public ServiceException(int errorCode, String errorMsg) {
 		super(errorMsg);
