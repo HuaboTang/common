@@ -20,8 +20,7 @@ public class Assert {
 			RuntimeException exception = null;
 			try {
 				exception = type.getConstructor(String.class).newInstance(errorMessage);
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception ignored) {
 			}
 			if (exception != null) {
 				throw exception;
@@ -42,7 +41,7 @@ public class Assert {
 			RuntimeException exception = null;
 			try {
 				exception = type.getConstructor(Integer.class, String.class).newInstance(errorCode, errorMessage);
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 			}
 			if (exception != null) {
 				throw exception;
