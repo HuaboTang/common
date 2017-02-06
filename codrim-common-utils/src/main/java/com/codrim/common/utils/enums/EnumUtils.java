@@ -19,7 +19,7 @@ public class EnumUtils {
 	 * @param <Key> 值类型
 	 * @return 枚举项或者空,只有当`key`为空时返回null,如果不为空,但未匹配到枚举项则会抛出异常
 	 */
-	public static <T extends Enum<T> & EnumWithKey<Key>, Key> T enumForKey(Class<T> type, Key key) {
+	public static <Key, T extends Enum<T> & EnumWithKey<Key>> T enumForKey(Class<T> type, Key key) {
 		if (key == null) {
 			return null;
 		}
