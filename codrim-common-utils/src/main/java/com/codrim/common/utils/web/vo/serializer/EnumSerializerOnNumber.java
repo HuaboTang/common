@@ -38,7 +38,7 @@ public class EnumSerializerOnNumber<T extends Enum<T> & EnumWithKeyDesc<Integer>
             final EnumWithKeyDesc<Integer> tmp = EnumUtils.enumForKey(
                     enumClass, value.intValue());
             final EnumForJson enumForJson = new EnumForJson(tmp.getKey(), tmp.getDesc());
-            gen.writeString(JsonMapper.getInstance().toJson(enumForJson));
+            gen.writeObject(enumForJson);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             gen.writeString("Error");

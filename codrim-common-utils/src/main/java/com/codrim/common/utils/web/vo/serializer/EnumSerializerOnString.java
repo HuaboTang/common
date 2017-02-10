@@ -51,7 +51,7 @@ public class EnumSerializerOnString<T extends Enum<T> & EnumWithKeyDesc<Integer>
                 }
 
                 Assert.isFalse(result.isEmpty(), "指定枚举类,未配置枚举信息");
-                gen.writeString(JsonMapper.getInstance().toJson(result));
+                gen.writeObject(result);
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
