@@ -1,11 +1,12 @@
 package com.codrim.common.utils.web.vo;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  * 分页查询结果
  */
-public class PagingResult<T> {
+public class PagingResult<T> implements Serializable {
     private int total;
     private Collection<T> rows;
 

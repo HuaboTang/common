@@ -1,10 +1,12 @@
 package com.codrim.common.utils.web.vo;
 
+import java.io.Serializable;
+
 /**
  * Param for paging
  * 页面查询,传递page和rows参数;数据库查询时,传递offset和rows作为查询参数
  */
-public class PagingParam {
+public class PagingParam implements Serializable {
     public static final int MAX__PAGE_ROWS = 100;
     /** 当前页数 */
     private int page = 1;

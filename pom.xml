@@ -4,10 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.codrim.common</groupId>
   <artifactId>codrim-common</artifactId>
-  <version>1.0.14-SNAPSHOT</version>
+  <version>1.0.15-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
     <module>codrim-common-utils</module>
+    <module>common-rpc</module>
   </modules>
 
   <properties>

@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -14,7 +15,7 @@ import java.util.Set;
  * 通用返回结果
  * Created by tanghuabo on 9/22/16.
  */
-public class CommonResult<T> {
+public class CommonResult<T> implements Serializable {
     public int getResult() {
         return result;
     }
