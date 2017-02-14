@@ -1,6 +1,8 @@
 package com.codrim.common.utils.enums;
 
-public enum ResultCode implements EnumWithKeyDesc<Integer> {
+import java.io.Serializable;
+
+public enum ResultCode implements EnumWithKeyDesc<Integer>, Serializable {
 
     Success(ResultCode.SUCCESS, "处理成功"),
     Error(ResultCode.ERROR, "处理失败");
