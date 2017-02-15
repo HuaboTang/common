@@ -1,9 +1,11 @@
 package com.codrim.common.utils.enums;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.List;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Enum工具类,需配合 {@link EnumWithKey} 进行使用
@@ -35,13 +37,26 @@ public class EnumUtils {
 		}
 		throw new IllegalArgumentException("Unknow enum key: '" + key + "'");
 	}
-	
-	public static <T extends Enum<T> & EnumWithKey<Key>, Key> List<Key> enumForKeyList(Class<T> type) {
-		List<Key> keyList = new ArrayList<>();
-		for (T t : EnumSet.allOf(type)) {
-			keyList.add(t.getKey());
+
+	public static <Key, T extends Enum<T> & EnumWithKey<Key>> Optional<T> optionalEnumForKey(Class<T> type, Key key) {
+		if (key == null) {
+			return Optional.empty();
 		}
-		return keyList;
+
+		final EnumSet<T> allEnums = EnumSet.allOf(type);
+		final Iterator<T> iterator = allEnums.iterator();
+		T result;
+		while (iterator.hasNext()) {
+			result = iterator.next();
+			if (key.equals(result.getKey())) {
+				return Optional.of(result);
+			}
+		}
+		return Optional.empty();
+	}
+
+	public static <T extends Enum<T> & EnumWithKey<Key>, Key> List<Key> keysOfEnum(Class<T> type) {
+		return EnumSet.allOf(type).stream().map(EnumWithKey::getKey).collect(Collectors.toList());
 	}
 	
 	public static <T extends Enum<T> & EnumWithKey<Key>, Key> Iterator<T> enumIterator(Class<T> type) {
@@ -50,6 +65,24 @@ public class EnumUtils {
 	}
 
 	public static <T extends Enum<T> & EnumWithKey<Key>, Key> boolean contaisKey(Class<T> type, Key key) {
-		return enumForKeyList(type).contains(key);
+		return keysOfEnum(type).contains(key);
 	}
+
+    /**
+     * 将由逗号分隔的值拼接而成的字符串,转化为Enum `List`
+     * @param <T> 枚举类型
+     * @param string 逗号分隔的值拼接而成的字符串
+     * @param type 枚举类型值
+     * @return 枚举成员集合
+     */
+	public static <T extends Enum<T> & EnumWithKey<Integer>> List<T> enumsForKeys(String string, Class<T> type) {
+		final String[] split = StringUtils.split(string, ",");
+		if (ArrayUtils.isNotEmpty(split)) {
+			return Arrays.stream(split).map(sType -> EnumUtils.optionalEnumForKey(type, NumberUtils.toInt(sType)).orElse(null))
+					.collect(Collectors.toList());
+		} else {
+			return null;
+		}
+	}
+
 }
