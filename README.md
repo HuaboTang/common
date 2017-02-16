@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.18 2017-02-16
+- 更改commons-collection 为commons-collection4
+
 ## 1.0.17 2017-02-16
 - 增加DateJsonSerializer/EnumWithKeyDescCollectionSerializer/EnumWithKeyDescSerializer
 
