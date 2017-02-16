@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.17 2017-02-16
+- 增加DateJsonSerializer/EnumWithKeyDescCollectionSerializer/EnumWithKeyDescSerializer
+
 ## 1.0.16 2017-02-15
 - 调整EnumUtils,增加了一些不抛出异常的处理方法
 
