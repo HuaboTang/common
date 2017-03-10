@@ -37,7 +37,7 @@ public class BeanUtils {
     private static <Target, Source> Target copyProperties(Class<Target> targetType, Source source) {
         try {
             Target target = targetType.newInstance();
-            org.springframework.beans.BeanUtils.copyProperties(source, targetType);
+            org.springframework.beans.BeanUtils.copyProperties(source, target);
             return target;
         } catch (InstantiationException | IllegalAccessException e) {
             logger.error(e.getMessage(), e);

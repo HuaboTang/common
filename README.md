@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.19.1 2017-03-10
+- 1.0.19版本有问题,修复BeanUtils.copyProperties复制无效的问题
+
 ## 1.0.19 2017-03-10
 - 调整BeanUtils实现,不再继承apache BeanUtils,内部改动Spring BeanUtils实现
 

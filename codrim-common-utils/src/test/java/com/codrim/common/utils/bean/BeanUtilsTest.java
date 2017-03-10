@@ -15,6 +15,22 @@ import static org.junit.Assert.assertNull;
 public class BeanUtilsTest {
 
     @Test
+    public void testCopyProperties() throws Exception {
+        final PopulateTest populateTest = new PopulateTest();
+        populateTest.setA("a");
+        populateTest.setB(10);
+        populateTest.setC("C");
+        populateTest.setD(10);
+
+        final PopulateTest populateTest1 = BeanUtils.copyProperties(populateTest, PopulateTest.class);
+        assertEquals("a", populateTest1.getA());
+        assertEquals((Integer) 10, populateTest1.getB());
+        assertEquals("C", populateTest.getC());
+        assertEquals(10, populateTest.getD());
+
+    }
+
+    @Test
     public void populate() throws Exception {
         final Map<String, Object> map = new HashMap<>();
         map.put("a", "a");
