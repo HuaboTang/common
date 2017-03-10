@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.19 2017-03-10
+- 调整BeanUtils实现,不再继承apache BeanUtils,内部改动Spring BeanUtils实现
+
 ## 1.0.18 2017-02-16
 - 更改commons-collection 为commons-collection4
 

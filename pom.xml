@@ -4,8 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.codrim.common</groupId>
     <artifactId>codrim-common</artifactId>
-    <version>1.0.18-SNAPSHOT</version>
+    <version>1.0.19</version>
     <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.codrim.parent</groupId>
+        <artifactId>codrim-pom-parent</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+
     <modules>
         <module>codrim-common-utils</module>
         <module>common-rpc</module>
@@ -21,40 +28,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-
             <!-- apache -->
-            <dependency><!-- http client -->
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.2</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>commons-codec</artifactId>
-                        <groupId>commons-codec</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <version>4.4.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient-cache</artifactId>
-                <version>4.4.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>4.4.1</version>
-            </dependency><!-- /http client -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>

@@ -1,94 +1,103 @@
 package com.codrim.common.utils.bean;
 
-import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ClassUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
+ *
  * Created by liang.ma on 19/11/2016.
  */
-public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
+public class BeanUtils {
+    private static final Logger logger = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
      * 拷贝列表中所有对象属性到指定object并组装成列表
-     * @param origList 源对象列表
-     * @param t2Clazz 目标对象class
-     * @param <T2> 目标对像泛型
-     * @param <T1> 源对象泛型
-     * @return
+     * @param sourceList 源对象列表
+     * @param targetType 目标对象class
+     * @param <Target> 目标对像泛型
+     * @param <Source> 源对象泛型
+     * @return `Target` entities
      */
-    public static <T2 extends java.lang.Object, T1 extends java.lang.Object> List<T2>  copyProperties(List<T1> origList ,Class<T2> t2Clazz) {
-        List<T2> destList = null;
-        if (CollectionUtils.isNotEmpty(origList)) {
-
-            destList = new ArrayList<T2>();
-            for (T1 t1 : origList) {
-                if (t1 == null) continue;
-                T2 t2 = copyProperties(t2Clazz, t1);
-                if (t2 != null)
-                    destList.add(t2);
-            }
+    public static <Target, Source> List<Target> copyProperties(List<Source> sourceList, Class<Target> targetType) {
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceList)) {
+            return null;
         }
-        return destList;
+        return sourceList.stream().map(t1 -> copyProperties(t1, targetType)).collect(Collectors.toList());
     }
 
-    private static <T2 extends java.lang.Object, T1 extends java.lang.Object> T2 copyProperties(
-        Class<T2> t2Clazz, T1 origObj) {
-        T2 t2 = null;
+    private static <Target, Source> Target copyProperties(Class<Target> targetType, Source source) {
         try {
-            t2 = t2Clazz.newInstance();
-            org.apache.commons.beanutils.BeanUtils.copyProperties(t2, origObj);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Target target = targetType.newInstance();
+            org.springframework.beans.BeanUtils.copyProperties(source, targetType);
+            return target;
+        } catch (InstantiationException | IllegalAccessException e) {
+            logger.error(e.getMessage(), e);
         }
-        return t2;
+        return null;
     }
 
 
     /**
      * 拷贝源对象属性生成目标对象实例
-     * @param origObj 源对象列表
-     * @param t2Clazz 目标对象class
-     * @param <T2> 目标对像泛型
-     * @param <T1> 源对象泛型
-     * @return
+     * @param source 源对象列表
+     * @param targetType 目标对象class
+     * @param <Target> 目标对像泛型
+     * @param <Source> 源对象泛型
+     * @return `Target` entity
      */
-    public static <T2 extends java.lang.Object, T1 extends java.lang.Object> T2 copyProperties(T1 origObj ,Class<T2> t2Clazz) {
-        T2 t2 = null;
-        if (origObj != null) {
-            t2 = copyProperties(t2Clazz,origObj);
+    public static <Target, Source> Target copyProperties(Source source, Class<Target> targetType) {
+        Target target = null;
+        if (source != null) {
+            target = copyProperties(targetType, source);
         }
-        return t2;
+        return target;
     }
 
     /**
      * 拷贝源Map属性生成目标对象实例
-     * @param origMap 源Map
-     * @param t1Clazz 目标对象class
-     * @param <T1> 目标对象泛型
-     * @return
+     * @param sourceMap 源Map
+     * @param targetType 目标对象class
+     * @param <Target> 目标对象泛型
+     * @return `Target` entity
      */
-    public static <T1> T1 populate(Map<String,Object> origMap ,Class<T1> t1Clazz) {
-        T1 t1 = null;
-        if (origMap != null && !origMap.isEmpty()) {
+    public static <Target> Target populate(Map<String, Object> sourceMap, Class<Target> targetType) {
+        if (sourceMap != null && !sourceMap.isEmpty()) {
             try {
-                t1 = t1Clazz.newInstance();
-                org.apache.commons.beanutils.BeanUtils.populate(t1,origMap);
-            } catch (InstantiationException e) {
+                final Target target = org.springframework.beans.BeanUtils.instantiate(targetType);
+
+                final PropertyDescriptor[] propertyDescriptors = org.springframework.beans.BeanUtils.getPropertyDescriptors(targetType);
+                Arrays.stream(propertyDescriptors).forEach(propertyDescriptor -> {
+                    final String name = propertyDescriptor.getName();
+                    final Method writeMethod = propertyDescriptor.getWriteMethod();
+                    Object valInMap;
+                    if (sourceMap.containsKey(name)
+                            && ClassUtils.isAssignable(writeMethod.getParameterTypes()[0], (valInMap = sourceMap.get(name)).getClass())) {
+                        if (Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+                            writeMethod.setAccessible(true);
+                        }
+                        try {
+                            writeMethod.invoke(target, valInMap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            logger.error(e.getMessage(), e);
+                        }
+                    }
+                });
+                return target;
+            } catch (Throwable e) {
                 e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         }
-        return t1;
+        return null;
     }
 }
