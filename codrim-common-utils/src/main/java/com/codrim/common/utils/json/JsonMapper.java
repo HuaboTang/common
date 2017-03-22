@@ -1,7 +1,10 @@
 package com.codrim.common.utils.json;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -80,6 +83,28 @@ public class JsonMapper {
 		}
 		try {
 			return mapper.readValue(jsonString, clazz);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * 解释字符串为Collection集合类型
+	 * @param json 待解释的字符串
+	 * @param collectionType 集合类型
+	 * @param elementType 集合元素类型
+	 * @param <T> 集合类型泛型
+	 * @param <E> 集合元素类型泛型
+	 * @return null或对应类型集合
+	 */
+	public <T extends Collection<E>, E> T fromJson(String json, Class<? extends Collection> collectionType, Class<E> elementType) {
+		if (StringUtils.isBlank(json)) {
+			return null;
+		}
+
+		try {
+			final CollectionType cType = mapper.getTypeFactory().constructCollectionType(collectionType, elementType);
+			return mapper.readValue(json, cType);
 		} catch (IOException e) {
 			return null;
 		}
