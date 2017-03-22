@@ -1,6 +1,10 @@
 # Release Notes
+## 1.1.0 2017-03-22
+- JsonMapper增加将字符串转化为集合的方法
+
 ## 1.0.20 2017-03-17
 - 扩展BeanUtils实现,新增两个方法.bean属性复制时,支持枚举值到枚举类(实现EnumWithKey)转换.
+
 ## 1.0.19.1 2017-03-10
 - 1.0.19版本有问题,修复BeanUtils.copyProperties复制无效的问题
 
