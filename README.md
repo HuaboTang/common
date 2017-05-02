@@ -1,4 +1,7 @@
 # Release Notes
+## 1.2.0 2017-05-02
+- 增加RpcResultUtils工具方法
+
 ## 1.1.0 2017-03-22
 - JsonMapper增加将字符串转化为集合的方法
 

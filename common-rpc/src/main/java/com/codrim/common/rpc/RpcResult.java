@@ -31,6 +31,14 @@ public class RpcResult<T extends Serializable> implements Serializable {
         this.data = t;
     }
 
+    /**
+     * 返回的结果是否代表操作成功
+     * @return 返回true,如果操作成功;否则返回false
+     */
+    public boolean isSuccess() {
+        return ResultCode.Success.getKey().equals(this.result);
+    }
+
     public Integer getResult() {
         return result;
     }
