@@ -1,4 +1,7 @@
 # Release Notes
+## 1.2.1 2017-05-03
+- 增加DubboAnnotationBean
+
 ## 1.2.0 2017-05-02
 - 增加RpcResultUtils工具方法
 
