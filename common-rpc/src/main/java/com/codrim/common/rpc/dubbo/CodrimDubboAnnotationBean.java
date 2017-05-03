@@ -45,15 +45,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * AnnotationBean
+ * CodrimDubboAnnotationBean
  *
- * @author william.liangf
+ * @author Liang.Zhuge
  */
-public class CodrimDubboAnnotationBean extends AbstractConfig implements DisposableBean, BeanFactoryPostProcessor, BeanPostProcessor, ApplicationContextAware {
+public class CodrimDubboAnnotationBean extends AbstractConfig implements DisposableBean,
+        BeanFactoryPostProcessor, BeanPostProcessor, ApplicationContextAware {
 
     private static final long serialVersionUID = -7582802454287589552L;
 
-    private static final Logger logger = LoggerFactory.getLogger(Logger.class);
+    private static final Logger logger = LoggerFactory.getLogger(CodrimDubboAnnotationBean.class);
 
     private String annotationPackage;
 
@@ -123,19 +124,21 @@ public class CodrimDubboAnnotationBean extends AbstractConfig implements Disposa
 
     public Object postProcessAfterInitialization(Object bean, String beanName)
             throws BeansException {
-        logger.info("beanName:{}", beanName);
         if (!isMatchPackage(bean)) {
             return bean;
         }
-        Service service = bean.getClass().getAnnotation(Service.class);
+        final Class<?> beanClass = beanClass(bean);
+        Service service = beanClass.getAnnotation(Service.class);
         if (service != null) {
             ServiceBean<Object> serviceConfig = new ServiceBean<>(service);
             if (void.class.equals(service.interfaceClass())
                     && "".equals(service.interfaceName())) {
-                if (bean.getClass().getInterfaces().length > 0) {
-                    serviceConfig.setInterface(bean.getClass().getInterfaces()[0]);
+                final Class<?>[] interfaces = beanClass.getInterfaces();
+                if (interfaces.length > 0) {
+                    serviceConfig.setInterface(interfaces[0]);
                 } else {
-                    throw new IllegalStateException("Failed to export remote service class " + bean.getClass().getName() + ", cause: The @Service undefined interfaceClass or interfaceName, and the service class unimplemented any interfaces.");
+                    throw new IllegalStateException("Failed to export remote service class "
+                            + beanClass.getName() + ", cause: The @Service undefined interfaceClass or interfaceName, and the service class unimplemented any interfaces.");
                 }
             }
             if (applicationContext != null) {
@@ -163,7 +166,6 @@ public class CodrimDubboAnnotationBean extends AbstractConfig implements Disposa
                 }
                 if (service.provider().length() > 0) {
                     serviceConfig.setProvider(applicationContext.getBean(service.provider(), ProviderConfig.class));
-                } else {
                 }
                 if (service.protocol() != null && service.protocol().length > 0) {
                     List<ProtocolConfig> protocolConfigs = new ArrayList<>();
@@ -202,7 +204,6 @@ public class CodrimDubboAnnotationBean extends AbstractConfig implements Disposa
      */
     public Object postProcessBeforeInitialization(Object bean, String beanName)
             throws BeansException {
-        System.out.println(beanName);
         if (!isMatchPackage(bean)) {
             return bean;
         }
@@ -223,7 +224,7 @@ public class CodrimDubboAnnotationBean extends AbstractConfig implements Disposa
                         }
                     }
                 } catch (Throwable e) {
-                    logger.error("Failed to init remote service reference at method " + name + " in class " + bean.getClass().getName() + ", cause: " + e.getMessage(), e);
+                    logger.error("Failed to init remote service reference at method " + name + " in class " + beanClass.getName() + ", cause: " + e.getMessage(), e);
                 }
             }
         }
@@ -241,7 +242,7 @@ public class CodrimDubboAnnotationBean extends AbstractConfig implements Disposa
                     }
                 }
             } catch (Throwable e) {
-                logger.error("Failed to init remote service reference at filed " + field.getName() + " in class " + bean.getClass().getName() + ", cause: " + e.getMessage(), e);
+                logger.error("Failed to init remote service reference at filed " + field.getName() + " in class " + beanClass.getName() + ", cause: " + e.getMessage(), e);
             }
         }
         return bean;
