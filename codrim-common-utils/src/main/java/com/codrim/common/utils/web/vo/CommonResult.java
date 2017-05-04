@@ -65,12 +65,4 @@ public class CommonResult<T> implements Serializable {
         this.data = data;
     }
 
-    public static void main(String[] args) {
-        CommonResult<String> commonResult = new CommonResult<>();
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<CommonResult<String>>> constraintValidatorSet = validator.validate(commonResult);
-        constraintValidatorSet.size();
-        System.out.println(constraintValidatorSet.iterator().next().getMessage());
-    }
 }
