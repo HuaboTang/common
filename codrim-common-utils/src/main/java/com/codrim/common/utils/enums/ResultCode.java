@@ -7,12 +7,14 @@ public enum ResultCode implements EnumWithKeyDesc<Integer>, Serializable {
     Success(ResultCode.SUCCESS, "处理成功"),
     Error(ResultCode.ERROR, "处理失败"),
     NoPermission(ResultCode.NO_PERMISSION, "无权限"),
-    NoResource(ResultCode.NO_RESOURCE, "资源不存在");
+    NoResource(ResultCode.NO_RESOURCE, "资源不存在"),
+    NotLogin(ResultCode.NOT_LOGIN, "未登录");
 
     public static final int ERROR = 500;
     public static final int SUCCESS = 200;
     public static final int NO_PERMISSION = 403;
     public static final int NO_RESOURCE = 404;
+    public static final int NOT_LOGIN = -100;
     public final int key;
     public final String desc;
 

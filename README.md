@@ -1,6 +1,10 @@
 # Release Notes
+## 1.3.2 2017-05-05
+- 能用返回状态码,增加NOT_LOGIN,标识用户未登录
+
 ## 1.3.1 2017-05-04
 - 优化&&扩充ResultCode枚举值,引入javax-validation依赖
+
 ## 1.3.0 2017-05-03
 - 增加DubboAnnotationBean
 
