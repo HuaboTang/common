@@ -44,7 +44,7 @@ public class BeanUtils {
         if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceList)) {
             return null;
         }
-        return sourceList.stream().map(t1 -> copyPropertiesAndConvertkeyToEnum(t1, targetType)).collect(Collectors.toList());
+        return sourceList.stream().map(t1 -> copyPropertiesAndConvertKeyToEnum(t1, targetType)).collect(Collectors.toList());
     }
 
     private static <Target, Source> Target copyProperties(Class<Target> targetType, Source source, boolean isConvertKeyToEnum) {
@@ -126,7 +126,7 @@ public class BeanUtils {
      * @param <Source> 源对象泛型
      * @return `Target` entity
      */
-    public static <Target, Source> Target copyPropertiesAndConvertkeyToEnum(Source source, Class<Target> targetType) {
+    public static <Target, Source> Target copyPropertiesAndConvertKeyToEnum(Source source, Class<Target> targetType) {
         Target target = null;
         if (source != null) {
             target = copyProperties(targetType, source, true);

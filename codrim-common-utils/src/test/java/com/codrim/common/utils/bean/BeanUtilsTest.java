@@ -26,7 +26,7 @@ public class BeanUtilsTest {
         populateTest.setIsTrue(0);
         populateTest.setDateFormat(20);
 
-        final PopulateTest2 populateTest2 = BeanUtils.copyPropertiesAndConvertkeyToEnum(populateTest, PopulateTest2.class);
+        final PopulateTest2 populateTest2 = BeanUtils.copyPropertiesAndConvertKeyToEnum(populateTest, PopulateTest2.class);
         assertEquals("a", populateTest2.getA());
         assertEquals((Integer) 10, populateTest2.getB());
         assertEquals("C", populateTest2.getC());

@@ -1,4 +1,7 @@
 # Release Notes
+## 1.3.3 2017-05-09
+- 重命名 BeanUtils的copyPropertiesXXX方法.
+
 ## 1.3.2 2017-05-05
 - 能用返回状态码,增加NOT_LOGIN,标识用户未登录
 
