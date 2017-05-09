@@ -40,7 +40,7 @@ public class BeanUtils {
      * @param <Source> 源对象泛型
      * @return `Target` entities
      */
-    public static <Target, Source> List<Target> copyListPropertiesAndConvertKeyToEnum(List<Source> sourceList, Class<Target> targetType) {
+    public static <Target, Source> List<Target> copyPropertiesAndConvertKeyToEnum(List<Source> sourceList, Class<Target> targetType) {
         if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceList)) {
             return null;
         }
