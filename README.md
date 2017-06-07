@@ -1,4 +1,8 @@
 # Release Notes
+## 1.3.5 2017-06-21
+- 升级BeanUtils.copyPropertiesAndConvertKeyToEnum 支持Collecion类型参数
+## 1.3.4 2017-06-07
+- 新增序列化类EnumWithKeySerializer实现 EnumWithKey<Key>类 -> key 的转化
 ## 1.3.3 2017-05-09
 - 重命名 BeanUtils的copyPropertiesXXX方法.
 

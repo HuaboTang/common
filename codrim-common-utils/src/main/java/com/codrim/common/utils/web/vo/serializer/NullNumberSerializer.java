@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 
 /**
+ *
  * Created by liang.ma on 16/01/2017.
  */
 public class NullNumberSerializer extends JsonSerializer<Number> {
