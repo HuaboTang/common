@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.codrim.common</groupId>
         <artifactId>codrim-common</artifactId>
-        <version>1.3.3</version>
+        <version>1.3.4</version>
     </parent>
     <artifactId>codrim-common-utils</artifactId>
     <name>codrim-common-utils</name>
