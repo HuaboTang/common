@@ -34,17 +34,17 @@ public class BeanUtils {
 
     /**
      * 拷贝列表中所有对象属性到指定object并组装成列表(支持枚举值到枚举类转换[枚举类必须实现EnumWithKey接口])
-     * @param sourceList 源对象列表
+     * @param sourceCollections 源对象结合
      * @param targetType 目标对象class
      * @param <Target> 目标对像泛型
      * @param <Source> 源对象泛型
      * @return `Target` entities
      */
-    public static <Target, Source> List<Target> copyPropertiesAndConvertKeyToEnum(List<Source> sourceList, Class<Target> targetType) {
-        if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceList)) {
+    public static <Target, Source> List<Target> copyPropertiesAndConvertKeyToEnum(Collection<Source> sourceCollections, Class<Target> targetType) {
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceCollections)) {
             return null;
         }
-        return sourceList.stream().map(t1 -> copyPropertiesAndConvertKeyToEnum(t1, targetType)).collect(Collectors.toList());
+        return sourceCollections.stream().map(t1 -> copyPropertiesAndConvertKeyToEnum(t1, targetType)).collect(Collectors.toList());
     }
 
     private static <Target, Source> Target copyProperties(Class<Target> targetType, Source source, boolean isConvertKeyToEnum) {
