@@ -2,7 +2,6 @@ package com.codrim.common.utils.web.vo.serializer;
 
 import com.codrim.common.utils.enums.EnumUtils;
 import com.codrim.common.utils.enums.EnumWithKeyDesc;
-import com.codrim.common.utils.json.JsonMapper;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -13,11 +12,11 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
- * 枚举key序列化为key-value
+ * 数值型枚举key序列化为key-value
  * Created by liang.ma on 08/12/2016.
  */
-public class EnumSerializerOnNumber<T extends Enum<T> & EnumWithKeyDesc<Integer>> extends JsonSerializer<Number> {
-    private static final Logger logger = LoggerFactory.getLogger(EnumSerializerOnNumber.class);
+public class NumberEnumKeySerializer<T extends Enum<T> & EnumWithKeyDesc<Number>> extends JsonSerializer<Number> {
+    private static final Logger logger = LoggerFactory.getLogger(NumberEnumKeySerializer.class);
 
     @Override
     @SuppressWarnings(value = "unchecked")
@@ -35,8 +34,7 @@ public class EnumSerializerOnNumber<T extends Enum<T> & EnumWithKeyDesc<Integer>
             EnumTypeSpecify annotation = field.getAnnotation(EnumTypeSpecify.class);
             Class<T> enumClass = (Class<T>) annotation.using();
 
-            final EnumWithKeyDesc<Integer> tmp = EnumUtils.enumForKey(
-                    enumClass, value.intValue());
+            final EnumWithKeyDesc tmp = EnumUtils.enumForKey(enumClass, value);
             final EnumForJson enumForJson = new EnumForJson(tmp.getKey(), tmp.getDesc());
             gen.writeObject(enumForJson);
         } catch (Exception e) {
