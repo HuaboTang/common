@@ -15,7 +15,7 @@ public class EnumWithKeySerializerTest {
     @Test
     public void test() {
         String json = JsonMapper.nonEmptyMapper().toJson(new EnumSerailizeClass(1, IntegerKeyEnum.Test1, "test"));
-        Assert.assertTrue(json.contains("\"enumWithShortKeyTestClass\":1"));
+        Assert.assertTrue(json.contains("\"key\":1"));
     }
 
     @Test
@@ -23,7 +23,7 @@ public class EnumWithKeySerializerTest {
         String json = JsonMapper.nonEmptyMapper().toJson(new ShortKeyEnumSerializeClass(1, (short)3, "test"));
         String json2 = JsonMapper.nonEmptyMapper().toJson(new IntegerKeyEnumSerializeClass(1, 1, "test"));
         Assert.assertTrue(json.contains("\"key\":3"));
-        Assert.assertTrue(json2.contains("\"key\":2"));
+        Assert.assertTrue(json2.contains("\"key\":1"));
     }
 
     private enum IntegerKeyEnum implements EnumWithKeyDesc<Integer> {
@@ -71,7 +71,7 @@ public class EnumWithKeySerializerTest {
     private class EnumSerailizeClass {
 
         private Integer id;
-        @JsonSerialize(using = EnumWithKeySerializer.class)
+        @JsonSerialize(using = EnumWithKeyDescSerializer.class)
         private IntegerKeyEnum integerKeyEnum;
         private String name;
 
