@@ -3,12 +3,10 @@ package com.codrim.common.utils.web.vo.serializer;
 import com.codrim.common.utils.enums.EnumUtils;
 import com.codrim.common.utils.enums.EnumWithKeyDesc;
 import com.codrim.common.utils.exception.Assert;
-import com.codrim.common.utils.json.JsonMapper;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 多个枚举key,转换为key-value列表
+ * 多个short类型的枚举key,转换为key-value列表
  * Created by liang.ma on 08/12/2016.
  */
-public class EnumSerializerOnString<T extends Enum<T> & EnumWithKeyDesc<Integer>> extends JsonSerializer<String> {
-    private static final Logger logger = LoggerFactory.getLogger(EnumSerializerOnString.class);
+public class ShortEnumKeySerializerOnString<T extends Enum<T> & EnumWithKeyDesc<Short>> extends JsonSerializer<String> {
+    private static final Logger logger = LoggerFactory.getLogger(ShortEnumKeySerializerOnString.class);
 
     @Override
     @SuppressWarnings(value = "unchecked")
@@ -45,8 +43,7 @@ public class EnumSerializerOnString<T extends Enum<T> & EnumWithKeyDesc<Integer>
 
                 final List<EnumForJson> result = new ArrayList<>(values.length);
                 for (String s : values) {
-                    final EnumWithKeyDesc<Integer> tmp = EnumUtils.enumForKey(
-                            enumClass, NumberUtils.toInt(s));
+                    final EnumWithKeyDesc tmp = EnumUtils.enumForKey(enumClass, Short.valueOf(s));
                     result.add(new EnumForJson(tmp.getKey(), tmp.getDesc()));
                 }
 
