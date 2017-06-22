@@ -1,4 +1,6 @@
 # Release Notes
+## 1.3.5 2017-06-22
+- 优化枚举类的序列化器 & 新增Timestamp类型序列化类
 ## 1.3.5 2017-06-21
 - 升级BeanUtils.copyPropertiesAndConvertKeyToEnum 支持Collecion类型参数
 ## 1.3.4 2017-06-07
