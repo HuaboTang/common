@@ -20,7 +20,7 @@ public enum TrueFalse implements EnumWithKeyDesc<Integer> {
 
     @Override
     public Integer getKey() {
-        return 0;
+        return key;
     }
 
     public static TrueFalse trueFalseEnum(int key) {
