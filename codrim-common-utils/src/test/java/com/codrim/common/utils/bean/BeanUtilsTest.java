@@ -32,7 +32,7 @@ public class BeanUtilsTest {
         assertEquals("C", populateTest2.getC());
         assertEquals(10, populateTest2.getD());
         assertEquals(DateFormat.yyyy_MM_dd_HH_mm_ss.getKey(), populateTest2.getDateFormat().getKey());
-        assertEquals(TrueFalse.True.getKey(), populateTest2.getIsTrue().getKey());
+        assertEquals(TrueFalse.False.getKey(), populateTest2.getIsTrue().getKey());
 
     }
 
