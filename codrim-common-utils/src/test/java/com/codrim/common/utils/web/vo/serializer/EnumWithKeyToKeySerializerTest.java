@@ -5,25 +5,37 @@ import com.codrim.common.utils.json.JsonMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * Created by liang.ma on 07/06/2017.
  */
-public class EnumWithKeySerializerTest {
+public class EnumWithKeyToKeySerializerTest {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void test() {
-        String json = JsonMapper.nonEmptyMapper().toJson(new EnumSerailizeClass(1, IntegerKeyEnum.Test1, "test"));
+    public void testEnumSerializer() {
+        String json = JsonMapper.nonEmptyMapper().toJson(new EnumSerailizeClass(1, IntegerKeyEnum.Test1, "testEnumSerializer"));
+        System.out.println("IntegerKeyEnum:" + json);
         Assert.assertTrue(json.contains("\"key\":1"));
     }
 
     @Test
-    public void test2() {
-        String json = JsonMapper.nonEmptyMapper().toJson(new ShortKeyEnumSerializeClass(1, (short)3, "test"));
-        String json2 = JsonMapper.nonEmptyMapper().toJson(new IntegerKeyEnumSerializeClass(1, 1, "test"));
-        Assert.assertTrue(json.contains("\"key\":3"));
-        Assert.assertTrue(json2.contains("\"key\":1"));
+    public void testKeySerializer() {
+        String json = JsonMapper.nonEmptyMapper().toJson(new IntegerKeySerializeClass(1, 1, "testEnumSerializer"));
+        System.out.println("KeySerialize:" + json);
+        Assert.assertTrue(json.contains("\"key\":1"));
+    }
+
+    @Test
+    public void testKeysSerializer() {
+        String json = JsonMapper.nonEmptyMapper().toJson(new IntegerKeysSerializerClass(1, "1,2" , "testEnumSerializer"));
+        System.out.println("KeysSerialize:" +  json);
+        Assert.assertTrue(json.contains("\"key\":1"));
+        Assert.assertTrue(json.contains("\"key\":2"));
+
     }
 
     private enum IntegerKeyEnum implements EnumWithKeyDesc<Integer> {
@@ -47,31 +59,11 @@ public class EnumWithKeySerializerTest {
         }
     }
 
-    private enum ShortKeyEnum implements EnumWithKeyDesc<Short> {
-        Test3((short)3,"test3"),
-        Test4((short)4, "test4");
-
-        public final short key;
-        public final String desc;
-        ShortKeyEnum(short key, String desc) {
-            this.key = key;
-            this.desc = desc;
-        }
-        @Override
-        public Short getKey() {
-            return key;
-        }
-
-        @Override
-        public String getDesc() {
-            return desc;
-        }
-    }
 
     private class EnumSerailizeClass {
 
         private Integer id;
-        @JsonSerialize(using = EnumWithKeyDescSerializer.class)
+        @JsonSerialize(using = EnumWithKeyDescToEnumJsonSerializer.class)
         private IntegerKeyEnum integerKeyEnum;
         private String name;
 
@@ -108,15 +100,15 @@ public class EnumWithKeySerializerTest {
 
 
 
-    private class IntegerKeyEnumSerializeClass {
+    private class IntegerKeySerializeClass {
 
         private Integer id;
-        @JsonSerialize(using = NumberEnumKeySerializer.class)
+        @JsonSerialize(using = NumberKeyToEnumJsonSerializer.class)
         @EnumTypeSpecify(using = IntegerKeyEnum.class)
         private int key;
         private String name;
 
-        IntegerKeyEnumSerializeClass(Integer id, int key, String name) {
+        IntegerKeySerializeClass(Integer id, int key, String name) {
             this.id = id;
             this.name = name;
             this.key = key;
@@ -147,18 +139,18 @@ public class EnumWithKeySerializerTest {
         }
     }
 
-    private class ShortKeyEnumSerializeClass {
+    private class IntegerKeysSerializerClass {
 
         private Integer id;
-        @JsonSerialize(using = NumberEnumKeySerializer.class)
-        @EnumTypeSpecify(using = ShortKeyEnum.class)
-        private short key;
+        @JsonSerialize(using = NumberKeysToEnumJsonSerializer.class)
+        @EnumTypeSpecify(using = IntegerKeyEnum.class)
+        private String keys;
         private String name;
 
-        ShortKeyEnumSerializeClass(Integer id, short key, String name) {
+        IntegerKeysSerializerClass(Integer id, String keys, String name) {
             this.id = id;
             this.name = name;
-            this.key = key;
+            this.keys = keys;
         }
 
         public Integer getId() {
@@ -169,12 +161,12 @@ public class EnumWithKeySerializerTest {
             this.id = id;
         }
 
-        public short getKey() {
-            return key;
+        public String getKeys() {
+            return keys;
         }
 
-        public void setKey(short key) {
-            this.key = key;
+        public void setKeys(String keys) {
+            this.keys = keys;
         }
 
         public String getName() {

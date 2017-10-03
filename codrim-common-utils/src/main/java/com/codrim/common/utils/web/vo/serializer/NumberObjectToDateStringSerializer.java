@@ -16,12 +16,12 @@ import java.util.Date;
  *      剩下的数字10位(尾部补3位0)或13位转为日期格式字符串
  * Created by tanghuabo on 28/11/2016.
  */
-public class NumberToDateSerializer extends JsonSerializer<Number>{
+public class NumberObjectToDateStringSerializer extends JsonSerializer<Object>{
 
     @Override
-    public void serialize(Number value, JsonGenerator gen, SerializerProvider serializers)
+    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers)
             throws IOException {
-        if (value == null || value.intValue() == 0) {
+        if (value == null || "0".equals(value)) {
             gen.writeString("");
         } else {
             String s = String.valueOf(value);

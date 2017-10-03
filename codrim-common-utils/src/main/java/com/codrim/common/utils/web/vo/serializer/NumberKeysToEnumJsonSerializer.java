@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 多个short类型的枚举key,转换为key-value列表
+ * 多个枚举key,转换为key-value列表
  * Created by liang.ma on 08/12/2016.
  */
-public class ShortEnumKeySerializerOnString<T extends Enum<T> & EnumWithKeyDesc<Short>> extends JsonSerializer<String> {
-    private static final Logger logger = LoggerFactory.getLogger(ShortEnumKeySerializerOnString.class);
+public class NumberKeysToEnumJsonSerializer<T extends Enum<T> & EnumWithKeyDesc<Number>> extends JsonSerializer<String> {
+    private static final Logger logger = LoggerFactory.getLogger(NumberKeysToEnumJsonSerializer.class);
 
     @Override
     @SuppressWarnings(value = "unchecked")
@@ -41,10 +42,10 @@ public class ShortEnumKeySerializerOnString<T extends Enum<T> & EnumWithKeyDesc<
                 EnumTypeSpecify annotation = field.getAnnotation(EnumTypeSpecify.class);
                 Class<T> enumClass = (Class<T>) annotation.using();
 
-                final List<EnumForJson> result = new ArrayList<>(values.length);
+                final List<EnumJson> result = new ArrayList<>(values.length);
                 for (String s : values) {
-                    final EnumWithKeyDesc tmp = EnumUtils.enumForKey(enumClass, Short.valueOf(s));
-                    result.add(new EnumForJson(tmp.getKey(), tmp.getDesc()));
+                    final EnumWithKeyDesc tmp = EnumUtils.enumForNumberKey(enumClass, NumberUtils.toLong(s));
+                    result.add(new EnumJson(tmp.getKey(), tmp.getDesc()));
                 }
 
                 Assert.isFalse(result.isEmpty(), "指定枚举类,未配置枚举信息");

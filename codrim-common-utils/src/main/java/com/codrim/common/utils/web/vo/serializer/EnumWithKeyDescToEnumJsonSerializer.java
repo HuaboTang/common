@@ -11,7 +11,7 @@ import java.io.IOException;
  * Json serializer for EnumWithKeyDesc
  * Created by ZhugeLiang on 14/02/2017.
  */
-public class EnumWithKeyDescSerializer<Key, T extends Enum<T> & EnumWithKeyDesc<Key>> extends JsonSerializer<T> {
+public class EnumWithKeyDescToEnumJsonSerializer<Key, T extends Enum<T> & EnumWithKeyDesc<Key>> extends JsonSerializer<T> {
 
     @Override
     public void serialize(T value, JsonGenerator gen, SerializerProvider serializers)

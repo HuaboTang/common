@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Json serializer for EnumWithKey
  */
-public class EnumWithKeySerializer<Key, T extends Enum<T> & EnumWithKey<Key>> extends JsonSerializer<T> {
+public class EnumWithKeyToKeySerializer<Key, T extends Enum<T> & EnumWithKey<Key>> extends JsonSerializer<T> {
 
     @Override
     public void serialize(T value, JsonGenerator gen, SerializerProvider serializers)

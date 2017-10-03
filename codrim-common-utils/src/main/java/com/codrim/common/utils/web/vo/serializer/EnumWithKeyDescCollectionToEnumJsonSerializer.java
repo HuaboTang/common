@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Json serializer for EnumWithKeyDesc collection
  * Created by ZhugeLiang on 14/02/2017.
  */
-public class EnumWithKeyDescCollectionSerializer<Key, T extends Enum<T> & EnumWithKeyDesc<Key>>
+public class EnumWithKeyDescCollectionToEnumJsonSerializer<Key, T extends Enum<T> & EnumWithKeyDesc<Key>>
         extends JsonSerializer<Collection<T>> {
     @Override
     public void serialize(Collection<T> value, JsonGenerator gen, SerializerProvider serializers)

@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit test for {@link ServiceException}
+ * Unit testEnumSerializer for {@link ServiceException}
  * Created by ZhugeLiang on 17/01/2017.
  */
 public class ServiceExceptionTest {

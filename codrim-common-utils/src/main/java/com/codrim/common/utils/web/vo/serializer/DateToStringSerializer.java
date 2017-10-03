@@ -12,7 +12,7 @@ import java.util.Date;
  * Serializer date to 'yyyy-MM-dd HH:mm:ss'
  * Created by ZhugeLiang on 03/02/2017.
  */
-public class DateJsonSerializer extends JsonSerializer<Date> {
+public class DateToStringSerializer extends JsonSerializer<Date> {
 
     @Override
     public void serialize(Date value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

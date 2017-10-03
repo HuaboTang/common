@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 /**
  * Timestamp 序列化
  */
-public class TimestampSerializer extends JsonSerializer<Timestamp> {
+public class TimestampToDateStringSerializer extends JsonSerializer<Timestamp> {
 
     @Override
     public void serialize(Timestamp value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

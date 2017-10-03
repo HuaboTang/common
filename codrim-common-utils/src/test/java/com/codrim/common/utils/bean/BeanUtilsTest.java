@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * Unit test for {@link BeanUtils}
+ * Unit testEnumSerializer for {@link BeanUtils}
  * Created by ZhugeLiang on 10/03/2017.
  */
 public class BeanUtilsTest {

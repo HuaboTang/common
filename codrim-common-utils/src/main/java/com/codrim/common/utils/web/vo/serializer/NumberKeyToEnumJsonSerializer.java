@@ -15,8 +15,8 @@ import java.lang.reflect.Field;
  * 数值型枚举key序列化为key-value
  * Created by liang.ma on 08/12/2016.
  */
-public class NumberEnumKeySerializer<T extends Enum<T> & EnumWithKeyDesc<Number>> extends JsonSerializer<Number> {
-    private static final Logger logger = LoggerFactory.getLogger(NumberEnumKeySerializer.class);
+public class NumberKeyToEnumJsonSerializer<T extends Enum<T> & EnumWithKeyDesc<Number>> extends JsonSerializer<Number> {
+    private static final Logger logger = LoggerFactory.getLogger(NumberKeyToEnumJsonSerializer.class);
 
     @Override
     @SuppressWarnings(value = "unchecked")
@@ -35,7 +35,7 @@ public class NumberEnumKeySerializer<T extends Enum<T> & EnumWithKeyDesc<Number>
             Class<T> enumClass = (Class<T>) annotation.using();
 
             final EnumWithKeyDesc tmp = EnumUtils.enumForKey(enumClass, value);
-            final EnumForJson enumForJson = new EnumForJson(tmp.getKey(), tmp.getDesc());
+            final EnumJson enumForJson = new EnumJson(tmp.getKey(), tmp.getDesc());
             gen.writeObject(enumForJson);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
