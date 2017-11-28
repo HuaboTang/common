@@ -1,16 +1,26 @@
 # Release Notes
+## 1.4.1 2017-11-28
+- 新增RPC层分页参数包装类
+
 ## 1.4.0 2017-10-03
 - 整理枚举的序列化类
+
 ## 1.3.7 2017-7-25
 - 枚举类bug处理
+
 ## 1.3.6 2017-06-22
 - failed的单元测试处理
+
 ## 1.3.5 2017-06-22
 - 优化枚举类的序列化器 & 新增Timestamp类型序列化类
+
 ## 1.3.5 2017-06-21
-- 升级BeanUtils.copyPropertiesAndConvertKeyToEnum 支持Collecion类型参数
+- 升级BeanUtils.copyPropertiesAndConve
+rtKeyToEnum 支持Collecion类型参数
+
 ## 1.3.4 2017-06-07
 - 新增序列化类EnumWithKeySerializer实现 EnumWithKey<Key>类 -> key 的转化
+
 ## 1.3.3 2017-05-09
 - 重命名 BeanUtils的copyPropertiesXXX方法.
 
