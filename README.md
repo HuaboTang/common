@@ -1,4 +1,8 @@
 # Release Notes
+## 1.4.2 2017-11-29
+- 新增日期字符串反序列化为Timestamp的类
+- 更名TimestampToDateStringSerializer为TimestampToStringSerializer
+
 ## 1.4.1 2017-11-28
 - 新增RPC层分页参数包装类
 

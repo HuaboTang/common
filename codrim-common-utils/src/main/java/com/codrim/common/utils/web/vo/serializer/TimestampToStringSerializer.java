@@ -10,8 +10,9 @@ import java.sql.Timestamp;
 
 /**
  * Timestamp 序列化
+ * @author tony
  */
-public class TimestampToDateStringSerializer extends JsonSerializer<Timestamp> {
+public class TimestampToStringSerializer extends JsonSerializer<Timestamp> {
 
     @Override
     public void serialize(Timestamp value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
