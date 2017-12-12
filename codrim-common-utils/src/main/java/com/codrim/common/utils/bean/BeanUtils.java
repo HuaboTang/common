@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,8 +53,9 @@ public class BeanUtils {
         try {
             Target target = targetType.newInstance();
             org.springframework.beans.BeanUtils.copyProperties(source, target);
-            if (isConvertKeyToEnum)
+            if (isConvertKeyToEnum) {
                 convertKeyToEnum(targetType, source, target);
+            }
             return target;
         } catch (InstantiationException | IllegalAccessException e) {
             logger.error(e.getMessage(), e);
@@ -73,31 +76,56 @@ public class BeanUtils {
         throws IllegalAccessException {
 
         Class sourceClass = source.getClass();
-        Field[] targetFields = targetType.getDeclaredFields();
-        Field[] sosurceFields = sourceClass.getDeclaredFields();
-        List<String> sourceFieldNams = Arrays.stream(sosurceFields).map(m -> m.getName()).collect(Collectors.toList());
+        List<Field> targetFields = getAllFields(targetType);
+        List<Field> sosurceFields = getAllFields(sourceClass);
+        List<String> sourceFieldNams = sosurceFields.stream().map(Field::getName).collect(Collectors.toList());
         for (Field targetField : targetFields) {
             Object targetFidldType = targetField.getType();
             String targetFiledName = targetField.getName();
             if(sourceFieldNams.contains(targetFiledName) &&  EnumWithKey.class.isAssignableFrom((Class) targetFidldType)) {
-                try {
-                    Field sourceField = sourceClass.getDeclaredField(targetFiledName);
-                    if (sourceField != null) {
-                        Iterator iterator = EnumSet.allOf((Class)targetFidldType).iterator();
-                        sourceField.setAccessible(true);
-                        while (iterator.hasNext()) {
-                            EnumWithKey tmp = (EnumWithKey)iterator.next();
-                            if (tmp.getKey().equals(sourceField.get(source))){
-                                targetField.setAccessible(true);
-                                targetField.set(target,tmp);
-                            }
+                Field sourceField =
+                    sosurceFields.stream().filter(field -> field.getName().equals(targetFiledName)).findFirst()
+                        .orElse(null);
+                if (sourceField != null) {
+                    Iterator iterator = EnumSet.allOf((Class)targetFidldType).iterator();
+                    sourceField.setAccessible(true);
+                    while (iterator.hasNext()) {
+                        EnumWithKey tmp = (EnumWithKey)iterator.next();
+                        if (tmp.getKey().equals(sourceField.get(source))){
+                            targetField.setAccessible(true);
+                            targetField.set(target,tmp);
                         }
                     }
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
                 }
             }
         }
+    }
+
+    private static Field getField(Class sourceClass, String fieldName) {
+        //当父类为null的时候说明到达了最上层的父类(Object类).
+        while (sourceClass != null) {
+            List<Field> fieldList = Arrays.asList(sourceClass .getDeclaredFields());
+            for (Field field : fieldList) {
+                if (field.getName().equals(fieldName)) {
+                    return  field;
+                }
+            }
+            //得到父类,然后赋给自己
+            sourceClass = sourceClass.getSuperclass();
+        }
+        return null;
+    }
+
+
+    private static List<Field> getAllFields(Class sourceClass) {
+        List<Field> allField = new ArrayList<>();
+        //当父类为null的时候说明到达了最上层的父类(Object类).
+        while (sourceClass != null) {
+            allField.addAll(Arrays.asList(sourceClass .getDeclaredFields()));
+            //得到父类,然后赋给自己
+            sourceClass = sourceClass.getSuperclass();
+        }
+        return allField;
     }
 
 
