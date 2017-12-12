@@ -1,5 +1,7 @@
 # Release Notes
-## 1.4.2 2017-11-29
+## 1.4.3 2017-12-12
+- fix:字段复制时,无法获取父类字段
+
 - 新增日期字符串反序列化为Timestamp的类
 - 更名TimestampToDateStringSerializer为TimestampToStringSerializer
 
