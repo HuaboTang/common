@@ -1,26 +1,29 @@
 package com.codrim.common.utils.json;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-
-import com.fasterxml.jackson.databind.type.CollectionType;
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser.Feature;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
  * 封装不同的输出风格, 使用不同的builder函数创建实例.
+ * @author Liang.Zhuge
  */
 public class JsonMapper {
+	private static final Logger logger = LoggerFactory.getLogger(JsonMapper.class);
+
 	private ObjectMapper mapper;
 
 	public JsonMapper() {
@@ -64,6 +67,7 @@ public class JsonMapper {
 		try {
 			return mapper.writeValueAsString(object);
 		} catch (IOException e) {
+			logger.warn(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -84,6 +88,7 @@ public class JsonMapper {
 		try {
 			return mapper.readValue(jsonString, clazz);
 		} catch (IOException e) {
+			logger.warn(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -106,6 +111,7 @@ public class JsonMapper {
 			final CollectionType cType = mapper.getTypeFactory().constructCollectionType(collectionType, elementType);
 			return mapper.readValue(json, cType);
 		} catch (IOException e) {
+			logger.warn(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -123,6 +129,7 @@ public class JsonMapper {
 		try {
 			return (T) mapper.readValue(jsonString, javaType);
 		} catch (IOException e) {
+			logger.warn(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -143,8 +150,8 @@ public class JsonMapper {
 	public <T> T update(String jsonString, T object) {
 		try {
 			return (T) mapper.readerForUpdating(object).readValue(jsonString);
-		} catch (JsonProcessingException e) {
-		} catch (IOException e) {
+		} catch (Exception e) {
+			logger.warn(e.getMessage(), e);
 		}
 		return null;
 	}
