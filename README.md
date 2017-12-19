@@ -1,4 +1,7 @@
 # Release Notes
+## 1.4.3 2017-12-19
+- JsonMapper增加日志
+
 ## 1.4.2 2017-11-29
 - 新增日期字符串反序列化为Timestamp的类
 - 更名TimestampToDateStringSerializer为TimestampToStringSerializer
