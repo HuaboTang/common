@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.codrim.common</groupId>
     <artifactId>codrim-common</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <packaging>pom</packaging>
 
     <parent>
