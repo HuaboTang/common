@@ -1,4 +1,4 @@
-package com.codrim.common.utils;
+package com.codrim.common.utils.data;
 
 import com.codrim.common.utils.web.vo.PagingParam;
 import com.codrim.common.utils.web.vo.PagingResult;
