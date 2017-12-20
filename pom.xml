@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.codrim.common</groupId>
     <artifactId>codrim-common</artifactId>
-    <version>1.4.4</version>
+    <version>1.5.0</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -17,4 +17,15 @@
         <module>codrim-common-utils</module>
         <module>common-rpc</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>1.12.6.RELEASE</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
