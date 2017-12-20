@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.codrim.common</groupId>
         <artifactId>codrim-common</artifactId>
-        <version>1.4.4</version>
+        <version>1.5.0</version>
     </parent>
     <artifactId>codrim-common-utils</artifactId>
     <name>codrim-common-utils</name>
@@ -23,6 +23,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
         </dependency>
         <!-- /spring -->
 

@@ -1,4 +1,7 @@
 # Release Notes
+## 1.5.0 2017-12-20
+- Add PageableUtils
+
 ## 1.4.4 2017-12-19
 - JsonMapper增加日志
 
