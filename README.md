@@ -1,4 +1,7 @@
 # Release Notes
+## 1.5.1 2017-12-26
+- Druid version update to 1.1.6
+
 ## 1.5.0 2017-12-20
 - Add PageableUtils
 
