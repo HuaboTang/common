@@ -1,4 +1,7 @@
 # Release Notes
+## 1.6.1 2018-06-10
+- 增加CurrencySymbol
+
 ## 1.5.1 2017-12-26
 - Druid version update to 1.1.6
 
