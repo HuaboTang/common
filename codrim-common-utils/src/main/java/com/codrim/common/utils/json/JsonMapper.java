@@ -135,12 +135,23 @@ public class JsonMapper {
 	}
 
 	/**
+	 * 构建包裹泛型的类型
+	 *
+	 * @param wrapperType 外层类型
+	 * @param generalType 泛型
+	 * @return 外层类型
+	 */
+	public JavaType createJavaType(Class<?> wrapperType, Class<?>... generalType) {
+		return mapper.getTypeFactory().constructParametricType(wrapperType, generalType);
+	}
+
+	/**
 	 * 构造泛型的Collection Type如: ArrayList<MyBean>,
 	 * 则调用constructCollectionType(ArrayList.class,MyBean.class)
 	 * HashMap<String,MyBean>, 则调用(HashMap.class,String.class, MyBean.class)
 	 */
 	public JavaType createCollectionType(Class<?> collectionClass, Class<?>... elementClasses) {
-		return mapper.getTypeFactory().constructParametrizedType(collectionClass, collectionClass, elementClasses);
+		return mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
 	}
 
 	/**
