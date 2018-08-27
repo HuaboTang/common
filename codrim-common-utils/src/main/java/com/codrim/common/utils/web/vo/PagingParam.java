@@ -1,6 +1,9 @@
 package com.codrim.common.utils.web.vo;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Param for paging
@@ -8,10 +11,21 @@ import java.io.Serializable;
  */
 public class PagingParam implements Serializable {
     public static final int MAX__PAGE_ROWS = 100;
+
+    public static final int DIRECTION_ASC = 1;
+    public static final int DIRECTION_DESC = 2;
+
     /** 当前页数 */
     private int page = 1;
     /** 每页最大行数 */
     private int rows = 10;
+
+    private int direction;
+    private List<String> properties;
+
+    public boolean hasSort() {
+        return (direction == 1 || direction == 2) && CollectionUtils.isNotEmpty(properties);
+    }
 
     public int getPage() {
         return page;
@@ -31,5 +45,21 @@ public class PagingParam implements Serializable {
 
     public int getOffset() {
         return Math.max(page-1, 0) * rows;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public List<String> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<String> properties) {
+        this.properties = properties;
     }
 }

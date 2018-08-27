@@ -31,7 +31,10 @@ public class PageableUtils {
             param = new PagingParam();
         }
         final int row = Math.max(0, Math.min(500, param.getRows()));
-        return new PageRequest(Math.max(0, param.getPage() - 1), row);
+        int page = Math.max(0, param.getPage() - 1);
+
+        return param.hasSort() ? new PageRequest(page, row, param.getDirection() == PagingParam.DIRECTION_ASC ? Sort.Direction.ASC : Sort.Direction.DESC, param.getProperties().toArray(new String[]{}))
+                               : new PageRequest(page, row);
     }
 
     public static Pageable toPageable(PagingParam param, Sort sort) {
