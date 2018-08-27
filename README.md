@@ -1,4 +1,7 @@
 # Release Notes
+## 1.9.0 2018-08-27
+- change: PagingParam增加排序参数
+
 ## 1.8.0 2018-08-27
 - add com.codrim.common.utils.web.vo.PagingResult.map
 
