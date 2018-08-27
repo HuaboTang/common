@@ -1,8 +1,10 @@
 package com.codrim.common.utils.web.vo;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,6 +24,11 @@ public class PagingParam implements Serializable {
 
     private int direction;
     private List<String> properties;
+
+    public void putSort(Sort.Direction direction, String... properties) {
+        this.direction = direction == Sort.Direction.DESC ? DIRECTION_DESC : DIRECTION_ASC;
+        this.properties = Arrays.asList(properties);
+    }
 
     public boolean hasSort() {
         return (direction == 1 || direction == 2) && CollectionUtils.isNotEmpty(properties);
