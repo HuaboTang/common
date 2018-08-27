@@ -2,6 +2,9 @@ package com.codrim.common.utils.web.vo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 分页查询结果
@@ -32,5 +35,10 @@ public class PagingResult<T> implements Serializable {
 
     public void setRows(Collection<T> rows) {
         this.rows = rows;
+    }
+
+    public <S> PagingResult<S> map(Function<T, S> converter) {
+        List<S> collect = rows.stream().map(converter).collect(Collectors.toList());
+        return new PagingResult<>(this.total, collect);
     }
 }
