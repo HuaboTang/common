@@ -1,4 +1,7 @@
 # Release Notes
+## 1.10.0 2018-10-22
+- add: 增加RedisLock
+
 ## 1.9.0 2018-08-27
 - change: PagingParam增加排序参数
 
