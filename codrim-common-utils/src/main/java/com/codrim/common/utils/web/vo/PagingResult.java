@@ -1,5 +1,7 @@
 package com.codrim.common.utils.web.vo;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -38,6 +40,12 @@ public class PagingResult<T> implements Serializable {
     }
 
     public <S> PagingResult<S> map(Function<T, S> converter) {
+        if (converter == null) {
+            throw new IllegalArgumentException();
+        }
+        if (CollectionUtils.isEmpty(rows)) {
+            return new PagingResult<>();
+        }
         List<S> collect = rows.stream().map(converter).collect(Collectors.toList());
         return new PagingResult<>(this.total, collect);
     }
