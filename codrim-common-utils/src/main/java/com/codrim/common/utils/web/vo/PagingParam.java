@@ -12,7 +12,7 @@ import java.util.List;
  * 页面查询,传递page和rows参数;数据库查询时,传递offset和rows作为查询参数
  */
 public class PagingParam implements Serializable {
-    public static final int MAX__PAGE_ROWS = 100;
+    public static final int MAX__PAGE_ROWS = 1000;
 
     public static final int DIRECTION_ASC = 1;
     public static final int DIRECTION_DESC = 2;
