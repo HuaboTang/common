@@ -1,4 +1,7 @@
 # Release Notes
+## 1.11.1 2019-01-18
+- change: PagingParam 最大行数限制改到1000
+
 ## 1.11.0 2018-10-22
 - add: 增加RedisLock
 
