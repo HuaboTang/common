@@ -1,0 +1,7 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.codrim.common.dingtalk.springboot.listener.DingTalkMachineAutoConfiguration
+#
+# ApplicationListener
+org.springframework.context.ApplicationListener=com.codrim.common.dingtalk.springboot.listener.DingTalkSpringBootStartListener,\
+  com.codrim.common.dingtalk.springboot.listener.DingTalkSpringBootReadyListener,\
+  com.codrim.common.dingtalk.springboot.listener.DingTalkSpringBootFailedListener
