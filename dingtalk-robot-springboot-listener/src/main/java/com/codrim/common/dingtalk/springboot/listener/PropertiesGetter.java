@@ -9,6 +9,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class PropertiesGetter {
     public static String getProperty(String name) {
-        return System.getenv(name);
+        return System.getProperty(name);
     }
 }
