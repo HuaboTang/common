@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author liang.ma on 27/11/2017.
  */
 public final class PageParamWrapper<T> implements Serializable {
-    private static final int MAX__PAGE_ROWS = 100;
+    private static final int MAX__PAGE_ROWS = 1000;
     /** 当前页数 */
     private int page = 1;
     /** 每页最大行数 */
