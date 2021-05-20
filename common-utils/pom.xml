@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.vbobot.common</groupId>
         <artifactId>common</artifactId>
-        <version>1.5.0</version>
+        <version>1.6.0</version>
     </parent>
     <artifactId>common-utils</artifactId>
     <name>vbobot-common-utils</name>
