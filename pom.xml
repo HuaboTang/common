@@ -17,6 +17,7 @@
         <module>common-utils</module>
         <module>common-rpc</module>
         <module>dingtalk-robot-springboot-listener</module>
+      <module>invoke-cost-time</module>
     </modules>
 
     <dependencyManagement>
