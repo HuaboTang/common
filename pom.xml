@@ -1,60 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.vbobot.common</groupId>
-    <artifactId>common</artifactId>
-    <version>1.6.0</version>
-    <packaging>pom</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.vbobot.common</groupId>
+  <artifactId>common</artifactId>
+  <version>1.6.0</version>
+  <packaging>pom</packaging>
 
-    <parent>
-        <groupId>com.vbobot.parent</groupId>
-        <artifactId>vbobot-pom-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
+  <parent>
+    <groupId>com.vbobot.parent</groupId>
+    <artifactId>vbobot-pom-parent</artifactId>
+    <version>1.1.0</version>
+  </parent>
 
-    <modules>
-        <module>common-utils</module>
-        <module>common-rpc</module>
-        <module>dingtalk-robot-springboot-listener</module>
-      <module>invoke-cost-time</module>
-    </modules>
+  <modules>
+    <module>common-utils</module>
+    <module>common-rpc</module>
+    <module>dingtalk-robot-springboot-listener</module>
+    <module>invoke-cost-time</module>
+  </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-commons</artifactId>
-                <version>1.12.6.RELEASE</version>
-                <scope>provided</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-commons</artifactId>
+        <version>1.12.6.RELEASE</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>public</id>
-            <name>Public Repositories</name>
-            <url>http://www.codrim.net/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>rdc-releases</id>
+      <url>https://packages.aliyun.com/maven/repository/2252741-release-F3eJT8/</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>rdc-snapshots</id>
+      <url>https://packages.aliyun.com/maven/repository/2252741-snapshot-2p7rGU/</url>
+    </repository>
+  </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Releases Repository</name>
-            <url>http://www.codrim.net/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots Repository</name>
-            <url>http://www.codrim.net/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+  <distributionManagement>
+    <repository>
+      <id>rdc-releases</id>
+      <url>https://packages.aliyun.com/maven/repository/2252741-release-F3eJT8/</url>
+    </repository>
+    <snapshotRepository>
+      <id>rdc-snapshots</id>
+      <url>https://packages.aliyun.com/maven/repository/2252741-snapshot-2p7rGU/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
