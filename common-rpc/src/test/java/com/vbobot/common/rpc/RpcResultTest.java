@@ -1,11 +1,12 @@
 package com.vbobot.common.rpc;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.vbobot.common.utils.enums.ResultCode;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.io.Serializable;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -17,8 +18,8 @@ public class RpcResultTest {
     public void testIsSuccess() throws Exception {
         final RpcResult<Serializable> serializableRpcResult = new RpcResult<>();
         serializableRpcResult.setResult(ResultCode.ERROR);
-        Assert.assertFalse(serializableRpcResult.isSuccess());
+        assertFalse(serializableRpcResult.isSuccess());
         serializableRpcResult.setResult(ResultCode.SUCCESS);
-        Assert.assertTrue(serializableRpcResult.isSuccess());
+        assertTrue(serializableRpcResult.isSuccess());
     }
 }

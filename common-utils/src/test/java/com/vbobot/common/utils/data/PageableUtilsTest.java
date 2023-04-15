@@ -33,7 +33,7 @@ public class PageableUtilsTest {
 
         pagingParam.setProperties(null);
         pagingParam.setDirection(0);
-        final Pageable pageable2 = PageableUtils.toPageable(pagingParam, () -> new Sort(Sort.Direction.DESC, "test2"));
+        final Pageable pageable2 = PageableUtils.toPageable(pagingParam, () -> Sort.by(Sort.Direction.DESC, "test2"));
         final Sort sort2 = pageable2.getSort();
         assertNotNull(sort2);
         assertEquals("test2", sort2.getOrderFor("test2").getProperty());

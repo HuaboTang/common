@@ -1,11 +1,6 @@
 package com.vbobot.common.utils.bean;
 
 import com.vbobot.common.utils.enums.EnumWithKey;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ClassUtils;
-
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,6 +13,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ClassUtils;
 
 /**
  *
@@ -35,7 +34,7 @@ public class BeanUtils {
      * @return `Target` entities
      */
     public static <Target, Source> List<Target> copyProperties(List<Source> sourceList, Class<Target> targetType) {
-        if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceList)) {
+        if (CollectionUtils.isEmpty(sourceList)) {
             return null;
         }
         return sourceList.stream().map(t1 -> copyProperties(t1, targetType)).collect(Collectors.toList());
@@ -50,7 +49,7 @@ public class BeanUtils {
      * @return `Target` entities
      */
     public static <Target, Source> List<Target> copyPropertiesAndConvertKeyToEnum(Collection<Source> sourceCollections, Class<Target> targetType) {
-        if (org.apache.commons.collections.CollectionUtils.isEmpty(sourceCollections)) {
+        if (CollectionUtils.isEmpty(sourceCollections)) {
             return null;
         }
         return sourceCollections.stream().map(t1 -> copyPropertiesAndConvertKeyToEnum(t1, targetType)).collect(Collectors.toList());

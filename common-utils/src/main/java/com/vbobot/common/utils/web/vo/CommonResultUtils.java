@@ -2,13 +2,13 @@ package com.vbobot.common.utils.web.vo;
 
 import com.vbobot.common.utils.exception.Assert;
 
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Liang.Zhuge

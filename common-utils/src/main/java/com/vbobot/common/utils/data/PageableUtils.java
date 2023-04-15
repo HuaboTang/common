@@ -35,7 +35,8 @@ public class PageableUtils {
         int page = page(param);
 
         return param.hasSort() ? sortFromPagingParam(param, row, page)
-                               : new PageRequest(page, row);
+                               : PageRequest.of(page, row);
+
     }
 
     private static int page(PagingParam param) {
@@ -48,7 +49,7 @@ public class PageableUtils {
 
     private static PageRequest sortFromPagingParam(PagingParam param, int row, int page) {
         final Sort.Direction direction = param.getDirection() == PagingParam.DIRECTION_ASC ? Sort.Direction.ASC : Sort.Direction.DESC;
-        return new PageRequest(page, row, direction, param.getProperties().toArray(new String[]{}));
+        return PageRequest.of(page, row, direction, param.getProperties().toArray(new String[0]));
     }
 
     public static Pageable toPageable(PagingParam param, Supplier<Sort> defSortCreator) {
@@ -63,9 +64,9 @@ public class PageableUtils {
         } else {
             Sort defSort;
             if (defSortCreator != null && (defSort = defSortCreator.get()) != null) {
-                return new PageRequest(page, row, defSort);
+                return PageRequest.of(page, row, defSort);
             } else {
-                return new PageRequest(page, row);
+                return PageRequest.of(page, row);
             }
         }
     }
@@ -75,7 +76,7 @@ public class PageableUtils {
             param = new PagingParam();
         }
         final int row = rows(param);
-        return new PageRequest(page(param), row, sort);
+        return PageRequest.of(page(param), row, sort);
     }
 
     public static <T> PagingResult<T> toPagingResult(Page<T> page) {
